@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4488ab0-590e-4405-9065-451e9582fa05" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/customer_repository.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/customer_repository_test.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/invoice_repository.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/invoice_repository_test.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/items_repository.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/items_repository_test.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/transactions_repository.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/transactions_repository_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sales_engine.iws" />
     <ignored path=".idea/workspace.xml" />
