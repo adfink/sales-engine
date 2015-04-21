@@ -13,4 +13,9 @@ class CustomerRepositoryTest < MiniTest::Test
     customer_repo = CustomerRepository.new
     assert customer_repo.check_for_file
   end
+
+  def test_that_it_can_output_the_file_contents
+    customer_repo = CustomerRepository.new
+    refute_equal "", customer_repo.output_file_contents
+  end
 end
