@@ -9,4 +9,5 @@ class MerchantsRepositoryTest < Minitest::Test
   repo = MerchantsRepository.new
   end
 
+
 end
