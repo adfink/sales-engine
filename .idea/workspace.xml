@@ -28,11 +28,21 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="merchants_repository.rb" pinned="false" current-in-tab="true">
+          <file leaf-file-name="merchants_repository.rb" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/merchants_repository.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.10089686" vertical-offset="0" max-vertical-offset="446">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
                   <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="invoice_items_repository.rb" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/lib/invoice_items_repository.rb">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="446">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -42,11 +52,21 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="merchants_repository_test.rb" pinned="false" current-in-tab="true">
+          <file leaf-file-name="merchants_repository_test.rb" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test/merchants_repository_test.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="446">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
                   <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="invoice_items_repository_test.rb" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test/invoice_items_repository_test.rb">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.2690583" vertical-offset="0" max-vertical-offset="446">
+                  <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
                   <folding />
                 </state>
               </provider>
@@ -66,6 +86,8 @@
         <option value="$PROJECT_DIR$/lib/merchants_repository.rb" />
         <option value="$PROJECT_DIR$/Rakefile" />
         <option value="$PROJECT_DIR$/test/invoice_items_test.rb" />
+        <option value="$PROJECT_DIR$/test/invoice_items_repository_test.rb" />
+        <option value="$PROJECT_DIR$/lib/invoice_items_repository.rb" />
       </list>
     </option>
   </component>
@@ -375,6 +397,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/merchants_repository.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/merchants_repository_test.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
@@ -383,10 +413,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/merchants_repository.rb">
+    <entry file="file://$PROJECT_DIR$/test/invoice_items_repository_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10089686" vertical-offset="0" max-vertical-offset="446">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2690583" vertical-offset="0" max-vertical-offset="446">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/invoice_items_repository.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="446">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
