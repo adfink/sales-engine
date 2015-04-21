@@ -9,4 +9,9 @@ class MerchantsRepositoryTest < Minitest::Test
   repo = MerchantsRepository.new
   end
 
+  def test_it_can_read_csv_file
+    repo = MerchantsRepository.new
+    assert repo.get_info != nil
+  end
+
 end
