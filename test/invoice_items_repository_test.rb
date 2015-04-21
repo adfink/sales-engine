@@ -7,6 +7,16 @@ class InvoiceItemsRepositoryTest < Minitest::Test
 
   def test_there_is_a_merchants_repo
     repo = InvoiceItemsRepository.new
+    assert repo
   end
 
+  def test_that_it_will_recognize_its_data_file
+    invoice_items_repo = InvoiceItemsRepository.new
+    assert invoice_items_repo.check_for_file
+  end
+
+  def test_that_it_can_output_its_file_data
+    invoice_items_repo = InvoiceItemsRepository.new
+    refute_equal "", invoice_items_repo.output_file_contents
+  end
 end
