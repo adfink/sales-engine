@@ -1,3 +1,7 @@
+require "rake"
+require "rake/testtask"
+
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
@@ -19,4 +23,19 @@ namespace :sanitation do
 
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
+end
+
+desc("pizza descioption")
+task :pizza do
+  puts "makin some za"
+end
+
+
+Rake::TestTask.new do |t|
+  t.pattern = "test/**/*_test.rb"
+
+  # t.libs << "test"   .... this does the same thing ....
+  # t.test_files = FileList['test/*.rb']
+  # t.verbose = true
+
 end
