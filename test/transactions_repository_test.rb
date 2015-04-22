@@ -47,52 +47,46 @@ class TransactionsRepositoryTest < Minitest::Test
     assert_equal ["4800749911485986", "4017503416578382", "4536896898764278"], transactions_repo.find_all_by_invoice_id("12").map{|transaction| transaction.credit_card_number}
   end
 
+  def test_it_can_find_by_credit_card_number
+    transactions_repo = TransactionsRepository.new
+    assert_equal "4", transactions_repo.find_by_credit_card_number("4515551623735607").id
+  end
+
+  def test_it_can_find_all_by_credit_card_number
+    transactions_repo = TransactionsRepository.new
+    assert_equal ["4515551623735607"], transactions_repo.find_all_by_credit_card_number("4515551623735607").map{|transaction| transaction.credit_card_number}
+  end
+
+  def test_it_can_find_by_created_at
+    transactions_repo = TransactionsRepository.new
+    assert_equal "3", transactions_repo.find_by_created_at("2012-03-27 14:54:10 UTC").id
+  end
+
+  def test_it_can_find_all_by_created_at
+    transactions_repo = TransactionsRepository.new
+    assert_equal ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"], transactions_repo.find_all_by_created_at("2012-03-27 14:54:10 UTC").map{|transaction| transaction.id}
+  end
+
+  def test_it_can_find_by_updated_at
+    transactions_repo = TransactionsRepository.new
+    assert_equal "1", transactions_repo.find_by_updated_at("2012-03-27 14:54:09 UTC").id
+  end
+
+  def test_it_can_find_all_by_updated_at
+    transactions_repo = TransactionsRepository.new
+    assert_equal ["1","2"], transactions_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC").map{|transaction| transaction.id}
+  end
+
+  def test_it_can_find_by_result
+    transactions_repo = TransactionsRepository.new
+    assert_equal "11", transactions_repo.find_by_result("failed").id
+  end
+
+  def test_it_can_find_all_by_result
+    transactions_repo = TransactionsRepository.new
+    assert_equal "947", transactions_repo.find_all_by_result("failed").map{|transaction| transaction.id}.count
+  end
 
 
 end
 
-
-
-#
-#
-#
-#
-
-#   def test_it_can_find_by_first_name
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal "Ondricka", transactions_repo.find_by_first_name("Joey").last_name
-#   end
-#
-#   def test_it_can_find_all_by_last_name
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal ["Imani", "Demarco"], transactions_repo.find_all_by_last_name("Smitham").map{|customer| customer.first_name}
-#     assert_equal [], transactions_repo.find_all_by_first_name("Max").map{|customer| customer.first_name}
-#   end
-#
-#   def test_it_can_find_by_last_name
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal "Joey", transactions_repo.find_by_last_name("Ondricka").first_name
-#   end
-#
-#   def test_it_can_find_all_by_created_at
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal ["Loyal", "Dejon", "Ramona"], transactions_repo.find_all_by_created_at("2012-03-27 14:54:11 UTC").map{|customer| customer.first_name}
-#     assert_equal [], transactions_repo.find_all_by_first_name("2015-03-27 14:54:11 UTC").map{|customer| customer.last_name}
-#   end
-#
-#   def test_it_can_find_by_created_at
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal "Joey", transactions_repo.find_by_created_at("2012-03-27 14:54:09 UTC").first_name
-#   end
-#
-#   def test_it_can_find_all_by_updated_at
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal ["Loyal", "Dejon", "Ramona"], transactions_repo.find_all_by_updated_at("2012-03-27 14:54:11 UTC").map{|customer| customer.first_name}
-#     assert_equal [], transactions_repo.find_all_by_first_name("2015-03-27 14:54:11 UTC").map{|customer| customer.last_name}
-#   end
-#
-#   def test_it_can_find_by_updated_at
-#     transactions_repo = TransactionsRepository.new
-#     assert_equal "Joey", transactions_repo.find_by_updated_at("2012-03-27 14:54:09 UTC").first_name
-#   end
-# end

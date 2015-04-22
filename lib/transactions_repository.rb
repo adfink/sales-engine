@@ -48,47 +48,42 @@ def find_all_by_invoice_id(number)
   @transactions.find_all {|transaction| transaction.invoice_id == number}
 end
 
+def find_by_credit_card_number(number)
+  @transactions.find {|transaction| transaction.credit_card_number == number}
+end
 
+def find_all_by_credit_card_number(number)
+  @transactions.find_all {|transaction| transaction.credit_card_number == number}
+end
+
+def find_by_created_at(time)
+  @transactions.find {|transaction| transaction.created_at.to_s == time}
+end
+
+
+def find_all_by_created_at(time)
+  @transactions.find_all {|transaction| transaction.created_at.to_s == time}
+end
+
+def find_by_updated_at(time)
+  @transactions.find {|transaction| transaction.updated_at.to_s == time}
+end
+
+def find_all_by_updated_at(time)
+  @transactions.find_all {|transaction| transaction.updated_at.to_s == time}
+end
+
+def find_by_result(result)
+  @transactions.find {|transaction| transaction.result.to_s == result}
+end
+
+def find_all_by_result(result)
+  @transactions.find_all {|transaction| transaction.result.to_s == result}
+end
 
 
 end
 
 
 
-#
-#
-#
-
-#
-# def find_by_first_name(first_name)
-#   @transactions.find {|transaction| transaction.first_name == first_name}
-# end
-#
-# def find_all_by_first_name(first_name)
-#   @transactions.find_all {|transaction| transaction.first_name == first_name}
-# end
-#
-# def find_by_last_name(last_name)
-#   @transactions.find {|transaction| transaction.last_name == last_name}
-# end
-#
-# def find_all_by_last_name(last_name)
-#   @transactions.find_all {|transaction| transaction.last_name == last_name}
-# end
-#
-# def find_by_created_at(time)
-#   @transactions.find {|transaction| transaction.created_at.to_s == time}
-# end
-#
-# def find_all_by_created_at(time)
-#   @transactions.find_all {|transaction| transaction.created_at.to_s == time}
-# end
-#
-# def find_by_updated_at(time)
-#   @transactions.find {|transaction| transaction.updated_at.to_s == time}
-# end
-#
-# def find_all_by_updated_at(time)
-#   @transactions.find_all {|transaction| transaction.updated_at.to_s == time}
-# end
-# end
+=
