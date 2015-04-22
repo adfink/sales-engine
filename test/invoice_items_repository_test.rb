@@ -10,6 +10,7 @@ class InvoiceItemsRepositoryTest < Minitest::Test
     assert invoice_items
   end
 
+
   def test_that_it_can_load_the_csv_files
     invoice_items = InvoiceItemsRepository.new
     refute_equal "", invoice_items.get_info_from_csv
