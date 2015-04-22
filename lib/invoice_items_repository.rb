@@ -6,6 +6,5 @@ class InvoiceItemsRepository
 
   def output_file_contents
     contents = File.read"./data/invoice_items.csv"
-    puts contents
   end
 end

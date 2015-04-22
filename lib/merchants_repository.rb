@@ -6,6 +6,5 @@ class MerchantsRepository
 
   def output_file_contents
     contents = File.read"./data/merchants.csv"
-    puts contents
   end
 end
