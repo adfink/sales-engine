@@ -1,20 +1,52 @@
-class CustomerRepository
+require 'csv'
+require_relative 'customer'
 
-<<<<<<< HEAD
-  def locate_data_file
-    File.exist?"./data/customers.csv"
+class CustomerRepository
+attr_reader :customers
+
+  def initialize
+    file_contents = CSV.open "./data/customers.csv", headers: true, header_converters: :symbol
+    @customers = []
+    file_contents.each do |row|
+      customer = Customer.new
+      customer.id = row[:id]
+      customer.first_name = row[:first_name]
+      customer.last_name = row[:last_name]
+      customer.created_at = row[:created_at]
+      customer.updated_at = row[:updated_at]
+      @customers << customer
+    end
   end
 
-  def output_file_contents
-    contents = File.read"./data/customers.csv"
-=======
+  def all
+    @customers
+  end
+
+  def random
+    @customers.sample
+  end
+
+  def find_by_id(number)
+    @customers.find {|customer| customer.id == number}
+  end
+
+  def find_by_first_name(first_name)
+    @customers.find {|customer| customer.first_name == first_name}
+  end
+
+  def find_by_last_name(last_name)
+    @customers.find {|customer| customer.last_name == last_name}
+  end
+
+  def find_by_created_at(time)
+    @customers.find {|customer| customer.created_at == time}
+  end
+
   def check_for_file
     File.exist? "./data/customers.csv"
   end
 
   def output_file_contents
-    contents = File.read "./data/customers.csv"
->>>>>>> b6f86039a688d0f5914c4e4a50cde1e63b36b432
-    puts contents
+    File.read "./data/customers.csv"
   end
 end
