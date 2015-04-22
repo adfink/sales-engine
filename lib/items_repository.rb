@@ -5,7 +5,6 @@ class ItemsRepository
   end
 
   def output_file_contents
-    contents = File.read"./data/items.csv"
-    puts contents
+    File.read"./data/items.csv"
   end
 end
