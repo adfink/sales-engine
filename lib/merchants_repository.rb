@@ -1,6 +1,6 @@
 class MerchantsRepository
 
-  def find_file
+  def check_for_file
     File.exist?"./data/merchants.csv"
   end
 

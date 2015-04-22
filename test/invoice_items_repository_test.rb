@@ -10,10 +10,13 @@ class InvoiceItemsRepositoryTest < Minitest::Test
     assert invoice_items
   end
 
-
-  def test_that_it_can_load_the_csv_files
-    invoice_items = InvoiceItemsRepository.new
-    refute_equal "", invoice_items.get_info_from_csv
+  def test_that_it_will_recognize_its_data_file
+    invoice_items_repo = InvoiceItemsRepository.new
+    assert invoice_items_repo.check_for_file
   end
 
+  def test_that_it_can_output_its_file_data
+    invoice_items_repo = InvoiceItemsRepository.new
+    refute_equal "", invoice_items_repo.output_file_contents
+  end
 end

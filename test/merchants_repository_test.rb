@@ -5,19 +5,13 @@ require './lib/merchants_repository.rb'
 
 class MerchantsRepositoryTest < Minitest::Test
 
-  def test_there_is_a_merchants_repo
-    repo = MerchantsRepository.new
-    assert repo
+  def test_it_can_recognize_its_data_file
+    merchants_repo = MerchantsRepository.new
+    assert merchants_repo.check_for_file
   end
 
-  def test_that_it_recognizes_the_data_file
-    repo = MerchantsRepository.new
-    assert repo.find_file
+  def test_it_can_output_its_data_from_the_file
+    merchants_repo = MerchantsRepository.new
+    refute_equal "", merchants_repo.output_file_contents
   end
-
-  def test_that_it_can_output_the_file_contents
-    repo = MerchantsRepository.new
-    refute_equal "", repo.output_file_contents
-  end
-
 end
