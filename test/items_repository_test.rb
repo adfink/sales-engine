@@ -8,9 +8,4 @@ class ItemsRepositoryTest < MiniTest::Test
     items_repo = ItemsRepository.new
     assert items_repo
   end
-
-  def test_that_it_can_output_its_data_file
-    items_repo = ItemsRepository.new
-    refute_equal "", items_repo.output_file_contents
-  end
 end
