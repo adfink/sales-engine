@@ -35,9 +35,21 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal "Ondricka", customer_repo.find_by_id("1").last_name
   end
 
+  def test_it_can_find_all_by_first_name
+    customer_repo = CustomerRepository.new
+    assert_equal ["Nader", "Frami"], customer_repo.find_all_by_first_name("Ashly").map{|customer| customer.last_name}
+    assert_equal [], customer_repo.find_all_by_first_name("Max").map{|customer| customer.last_name}
+  end
+
   def test_it_can_find_by_first_name
     customer_repo = CustomerRepository.new
     assert_equal "Ondricka", customer_repo.find_by_first_name("Joey").last_name
+  end
+
+  def test_it_can_find_all_by_last_name
+    customer_repo = CustomerRepository.new
+    assert_equal ["Imani", "Demarco"], customer_repo.find_all_by_last_name("Smitham").map{|customer| customer.first_name}
+    assert_equal [], customer_repo.find_all_by_first_name("Max").map{|customer| customer.first_name}
   end
 
   def test_it_can_find_by_last_name
@@ -45,8 +57,25 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal "Joey", customer_repo.find_by_last_name("Ondricka").first_name
   end
 
+  def test_it_can_find_all_by_created_at
+    customer_repo = CustomerRepository.new
+    assert_equal ["Loyal", "Dejon", "Ramona"], customer_repo.find_all_by_created_at("2012-03-27 14:54:11 UTC").map{|customer| customer.first_name}
+    assert_equal [], customer_repo.find_all_by_first_name("2015-03-27 14:54:11 UTC").map{|customer| customer.last_name}
+  end
+
   def test_it_can_find_by_created_at
     customer_repo = CustomerRepository.new
-    assert_equal "Joey", customer_repo.find_by_created_at(2012-03-27 14:54:09).last_name
+    assert_equal "Joey", customer_repo.find_by_created_at("2012-03-27 14:54:09 UTC").first_name
+  end
+
+  def test_it_can_find_all_by_updated_at
+    customer_repo = CustomerRepository.new
+    assert_equal ["Loyal", "Dejon", "Ramona"], customer_repo.find_all_by_updated_at("2012-03-27 14:54:11 UTC").map{|customer| customer.first_name}
+    assert_equal [], customer_repo.find_all_by_first_name("2015-03-27 14:54:11 UTC").map{|customer| customer.last_name}
+  end
+
+  def test_it_can_find_by_updated_at
+    customer_repo = CustomerRepository.new
+    assert_equal "Joey", customer_repo.find_by_updated_at("2012-03-27 14:54:09 UTC").first_name
   end
 end
