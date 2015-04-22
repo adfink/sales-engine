@@ -1,10 +1,11 @@
 class InvoiceItemsRepository
 
+  def check_for_file
+    File.exist?"./data/invoice_items.csv"
+  end
 
-
-
-  def get_info_from_csv
-    contents = File.read("data/invoice_items.csv")
-    # p contents
+  def output_file_contents
+    contents = File.read"./data/invoice_items.csv"
+    puts contents
   end
 end
