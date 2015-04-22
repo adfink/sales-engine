@@ -8,9 +8,4 @@ class CustomerTest < MiniTest::Test
     customer = Customer.new
     assert customer
   end
-
-  def test_that_it_contains_an_id
-    customer = Customer.new
-    customer
-  end
 end
