@@ -37,6 +37,11 @@ class TransactionsRepositoryTest < Minitest::Test
     assert_equal "1",transactions_repo.find_by_id("1").id
   end
 
+  def test_it_can_find_by_id_and_if_the_id_does_not_exist_it_returns_nil
+    transactions_repo = TransactionsRepository.new(nil)
+    assert_equal nil, transactions_repo.find_by_id("9999999999999")
+  end
+
   def test_it_can_find_by_invoice_id
     transactions_repo = TransactionsRepository.new(nil)
     assert_equal "4580251236515201", transactions_repo.find_by_invoice_id("2").credit_card_number
@@ -45,6 +50,11 @@ class TransactionsRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_invoice_id
     transactions_repo = TransactionsRepository.new(nil)
     assert_equal ["4800749911485986", "4017503416578382", "4536896898764278"], transactions_repo.find_all_by_invoice_id("12").map{|transaction| transaction.credit_card_number}
+  end
+
+  def test_it_can_find_all_by_invoice_id_and_if_the_id_does_not_exist_it_returns_empty_array
+    transactions_repo = TransactionsRepository.new(nil)
+    assert_equal [], transactions_repo.find_all_by_invoice_id("9999999999999999999999").map{|transaction| transaction.credit_card_number}
   end
 
   def test_it_can_find_by_credit_card_number
