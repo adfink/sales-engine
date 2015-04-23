@@ -1,25 +1,26 @@
 require 'csv'
-require_relative 'merchant'
+require './lib/merchant'
+require './lib/engine'
 
 class MerchantsRepository
 attr_reader :merchants, :engine
 
-  def initialize(engine)
+  def initialize(engine, filepath)
     @engine = engine
-    file_contents = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
-    @merchants = []
-    file_contents.each do |row|
-      merchant = Merchant.new(row, self)
-      @merchants << merchant
-    end
+    @merchants = generate_merchants(filepath)
   end
 
-  def check_for_file
-    File.exist?"./data/merchants.csv"
+  def generate_merchants(filepath)
+    output = CSV.open filepath, headers: true, header_converters: :symbol
+    output.map {|row| Merchant.new(row, self)}
   end
 
-  def output_file_contents
-    File.read"./data/merchants.csv"
+  def check_for_file(filepath)
+    File.exist?(filepath)
+  end
+
+  def output_file_contents(filepath)
+    File.read(filepath)
   end
 
   def all

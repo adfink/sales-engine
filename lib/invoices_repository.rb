@@ -5,14 +5,14 @@ require './lib/engine'
 class InvoicesRepository
   attr_reader :invoices
 
-  def initialize(engine)
+  def initialize(engine, filepath)
     @engine = engine
-    file_contents = CSV.open"./data/invoices.csv", headers: true, header_converters: :symbol
-    @invoices = []
-    file_contents.each do |row|
-      invoice = Invoice.new(row, self)
-      @invoices << invoice
-    end
+    @invoices = generate_invoices(filepath)
+  end
+
+  def generate_invoices(filepath)
+    file_contents = CSV.open filepath, headers: true, header_converters: :symbol
+    file_contents.map{|row| Invoice.new(row, self)}
   end
 
   def check_for_file

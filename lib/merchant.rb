@@ -16,11 +16,11 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def items
-    item_repo = global_engine.item_repository
-    item_repo.find_by_merchant_id(self.id)
+    item_repo = global_engine.items_repository
+    item_repo.find_all_by_merchant_id(self.id)
   end
 
-  def invoice
+  def invoices
     invoice_repo = global_engine.invoice_repository
     invoice_repo.find_by_merchant_id(self.id)
   end

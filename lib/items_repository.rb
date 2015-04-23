@@ -1,18 +1,19 @@
 require 'csv'
 require './lib/item'
-# require './lib/engine'
+require './lib/engine'
 
 class ItemsRepository
   attr_reader :items, :engine
 
-  def initialize(engine)
+  def initialize(engine, filepath)
     @engine = engine
-    file_contents = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
-    @items = []
-    file_contents.each do |row|
-      item = Item.new(row, self)
-      @items << item
-    end
+    @items = generate_items(filepath)
+  end
+
+  def generate_items(filepath)
+    output = CSV.open filepath, headers: true, header_converters: :symbol
+    output.map {|row| Item.new(row, self)}
+
   end
 
   def output_file_contents
