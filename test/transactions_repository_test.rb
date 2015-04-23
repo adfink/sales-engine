@@ -86,7 +86,5 @@ class TransactionsRepositoryTest < Minitest::Test
     transactions_repo = TransactionsRepository.new
     assert_equal 947, transactions_repo.find_all_by_result("failed").map{|transaction| transaction.id}.count
   end
-
-
 end
 
