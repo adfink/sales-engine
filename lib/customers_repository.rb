@@ -5,14 +5,15 @@ require './lib/engine'
 class CustomersRepository
 attr_reader :customers, :engine
 
-  def initialize(engine)
+  def initialize(engine, filepath)
     @engine = engine
-    file_contents = CSV.open "./data/customers.csv", headers: true, header_converters: :symbol
-    @customers = []
-    file_contents.each do |row|
-      customer = Customer.new(row, self)
-      @customers << customer
-    end
+    @customers = generate_customers(filepath)
+  end
+
+  def generate_customers(filepath)
+    file_contents = CSV.open filepath, headers: true, header_converters: :symbol
+    file_contents.map{|row| Customer.new(row, self)}
+
   end
 
   def check_for_file
