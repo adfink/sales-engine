@@ -20,7 +20,7 @@ attr_reader :transactions
   end
 
   def output_file_contents
-    contents = File.read("data/transactions.csv")
+    File.read("data/transactions.csv")
   end
 
   def all

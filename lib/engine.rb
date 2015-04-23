@@ -26,4 +26,34 @@ class Engine
     @customers_repository     = CustomersRepository.new(self, "#{@dir}/customers.csv")
     @transactions_repository  = TransactionsRepository.new(self, "#{@dir}/transactions.csv")
   end
+
+  def find_all_items_by_merchant_id(merchant_id)
+    @items_repository.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_all_invoices_by_merchant_id(merchant_id)
+    @invoices_repository.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    @transactions_repository.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    @invoice_items_repository.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    invoice_items = @invoice_items_repository.find_all_by_invoice_id(invoice_id)
+    item_ids = invoice_items.map{|item| item.item_id}
+    @items_repository.get_items(item_ids)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    @customers_repository.find_by_id(customer_id)
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @merchants_repository.find_by_id(merchant_id)
+  end
 end

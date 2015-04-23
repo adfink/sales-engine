@@ -74,4 +74,24 @@ class InvoicesRepository
   def find_all_by_updated_at(time)
     @invoices.find_all {|invoice| invoice.updated_at.to_s == time}
   end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    @engine.find_all_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    @engine.find_all_invoice_items_by_invoice_id(invoice_id)
+  end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    @engine.find_all_items_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    @engine.find_customer_by_invoice_id(customer_id)
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @engine.find_merchant_by_merchant_id(merchant_id)
+  end
 end

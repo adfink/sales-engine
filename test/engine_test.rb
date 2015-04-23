@@ -8,4 +8,10 @@ class EngineTest < MiniTest::Test
     engine = Engine.new("./data")
     assert engine
   end
+
+  def test_it_can_return_item_instances_by_merchant_id
+    engine = Engine.new("./data")
+    engine.startup
+    assert_equal [], engine.find_all_items_by_merchant_id("1")
+  end
 end

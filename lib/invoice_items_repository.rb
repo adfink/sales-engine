@@ -43,7 +43,6 @@ class InvoiceItemsRepository
     @invoice_items.find_all {|invoice_item| invoice_item.invoice_id == number}
   end
 
-
   def find_by_item_id(number)
     @invoice_items.find {|invoice_item| invoice_item.item_id == number}
   end
@@ -67,7 +66,6 @@ class InvoiceItemsRepository
   def find_all_by_unit_price(number)
     @invoice_items.find_all {|invoice_item| invoice_item.unit_price == number}
   end
-
 
   def find_by_created_at(time)
     @invoice_items.find {|invoice_item| invoice_item.created_at.to_s == time}

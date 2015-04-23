@@ -11,17 +11,11 @@ attr_accessor :id, :name, :created_at, :updated_at
     @updated_at = row[:updated_at]
   end
 
-  def global_engine
-    @repository.engine
-  end
-
   def items
-    item_repo = global_engine.items_repository
-    item_repo.find_all_by_merchant_id(self.id)
+    @repository.find_all_items_by_merchant_id(:id)
   end
 
   def invoices
-    invoice_repo = global_engine.invoice_repository
-    invoice_repo.find_by_merchant_id(self.id)
+    @repository.find_all_invoices_by_merchand_id(:id)
   end
 end

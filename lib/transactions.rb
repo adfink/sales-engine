@@ -17,8 +17,4 @@ class Transactions
     @credit_card_expiration_date = row[:credit_card_expiration_date]
     @result                      = row[:result]
   end
-
-  def global_engine
-    @repository.engine
-  end
 end

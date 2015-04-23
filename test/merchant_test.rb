@@ -7,10 +7,7 @@ require './lib/engine'
 class MerchantTest < MiniTest::Test
 
   def setup
-    @engine = Engine.new
-    @engine.startup
-    output = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
-    @rows = output.map{|row| row}
+
   end
 
   def test_it_exists
