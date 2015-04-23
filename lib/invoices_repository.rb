@@ -1,20 +1,16 @@
 require 'csv'
-require_relative 'invoice'
+require './lib/invoice'
+require './lib/engine'
 
-class InvoiceRepository
+class InvoicesRepository
   attr_reader :invoices
 
-  def initialize
+  def initialize(engine)
+    @engine = engine
     file_contents = CSV.open"./data/invoices.csv", headers: true, header_converters: :symbol
     @invoices = []
     file_contents.each do |row|
-      invoice = Invoice.new
-      invoice.id          = row[:id]
-      invoice.customer_id = row[:customer_id]
-      invoice.merchant_id = row[:merchant_id]
-      invoice.status      = row[:status]
-      invoice.created_at  = row[:created_at]
-      invoice.updated_at  = row[:updated_at]
+      invoice = Invoice.new(row, self)
       @invoices << invoice
     end
   end

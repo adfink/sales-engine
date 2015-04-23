@@ -1,21 +1,16 @@
 require 'csv'
-require_relative 'transactions'
+require './lib/transactions'
+require './lib/engine'
 
 class TransactionsRepository
 attr_reader :transactions
 
-  def initialize
+  def initialize(engine)
+    @engine = engine
     file_contents = CSV.open "./data/transactions.csv", headers: true, header_converters: :symbol
     @transactions = []
     file_contents.each do |row|
-      transaction = Transactions.new
-      transaction.id = row[:id]
-      transaction.invoice_id = row[:invoice_id]
-      transaction.credit_card_number = row[:credit_card_number]
-      transaction.created_at = row[:created_at]
-      transaction.updated_at = row[:updated_at]
-      transaction.credit_card_expiration_date = row[:credit_card_expiration_date]
-      transaction.result = row[:result]
+      transaction = Transactions.new(row, self)
       @transactions << transaction
     end
   end

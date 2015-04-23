@@ -1,3 +1,5 @@
+require './lib/items_repository'
+
 class Item
 attr_accessor :id,
               :name,

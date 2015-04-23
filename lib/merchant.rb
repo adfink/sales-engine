@@ -1,3 +1,5 @@
+require_relative 'merchants_repository'
+
 class Merchant
 attr_accessor :id, :name, :created_at, :updated_at
 
@@ -20,11 +22,6 @@ attr_accessor :id, :name, :created_at, :updated_at
 
   def invoice
     invoice_repo = global_engine.invoice_repository
-    invoice_repo = find_by_merchant_id(self.id)
+    invoice_repo.find_by_merchant_id(self.id)
   end
 end
-
-Merchant.global_engine #self.global_engine
-
-m = Merchant.new #global_engine
-m.global_engine

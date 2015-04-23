@@ -1,21 +1,28 @@
+require './lib/merchants_repository'
+require './lib/invoices_repository'
+require './lib/items_repository'
+require './lib/invoice_items_repository'
+require './lib/customers_repository'
+require './lib/transactions_repository'
+
 class Engine
-  attr_reader :merchant_repository,
-              :invoice_repository,
+  attr_reader :merchants_repository,
+              :invoices_repository,
               :items_repository,
-              :invoice_item_repository,
-              :customer_repository,
-              :transaction_repository
+              :invoice_items_repository,
+              :customers_repository,
+              :transactions_repository
 
   def initialize(repository)
     @repository = repository
   end
 
   def startup
-    @merchant_repository     = MerchantRepository.new(self)
-    @invoice_repository      = InvoiceRepository.new(self)
-    @items_repository        = ItemsRepository.new(self)
-    @invoice_item_repository = InvoiceItemRepository.new(self)
-    @customer_repository     = CustomerRepository.new(self)
-    @transaction_repository  = TransactionRepository.new(self)
+    @merchants_repository     = MerchantsRepository.new(self)
+    @invoices_repository      = InvoicesRepository.new(self)
+    @items_repository         = ItemsRepository.new(self)
+    @invoice_items_repository = InvoiceItemsRepository.new(self)
+    @customers_repository     = CustomersRepository.new(self)
+    @transactions_repository  = TransactionsRepository.new(self)
   end
 end
