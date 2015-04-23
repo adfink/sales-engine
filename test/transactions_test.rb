@@ -1,16 +1,16 @@
 require 'minitest/pride'
 require 'minitest/autorun'
-require './lib/customer'
+require './lib/transactions'
 
-class CustomerTest < MiniTest::Test
+class TransactionsTest < MiniTest::Test
 
   def test_that_it_exists
-    customer = Customer.new
-    assert customer
+    transaction = Transactions.new
+    assert transaction
   end
 
   def test_that_it_contains_an_id
-    customer = Customer.new
-    customer
+    transaction = Transactions.new
+    transaction
   end
 end
