@@ -4,8 +4,8 @@ require './lib/customer'
 
 class CustomerTest < MiniTest::Test
 
-  def test_that_it_exists
-    customer = Customer.new
-    assert customer
-  end
+  # def test_that_it_exists
+  #   customer = Customer.new
+  #   assert customer
+  # end
 end

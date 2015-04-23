@@ -4,8 +4,8 @@ require './lib/merchant'
 
 class MerchantTest < MiniTest::Test
 
-  def test_it_exists
-    merchant = Merchant.new
-    assert merchant
-  end
+  # def test_it_exists
+  #   merchant = Merchant.new(nil, nil)
+  #   assert merchant
+  # end
 end

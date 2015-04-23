@@ -1,19 +1,16 @@
 require 'csv'
-require_relative 'customer'
+require './lib/customer'
+require './lib/engine'
 
-class CustomerRepository
-attr_reader :customers
+class CustomersRepository
+attr_reader :customers, :engine
 
-  def initialize
+  def initialize(engine)
+    @engine = engine
     file_contents = CSV.open "./data/customers.csv", headers: true, header_converters: :symbol
     @customers = []
     file_contents.each do |row|
-      customer = Customer.new
-      customer.id = row[:id]
-      customer.first_name = row[:first_name]
-      customer.last_name = row[:last_name]
-      customer.created_at = row[:created_at]
-      customer.updated_at = row[:updated_at]
+      customer = Customer.new(row, self)
       @customers << customer
     end
   end

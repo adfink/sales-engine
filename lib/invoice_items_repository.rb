@@ -1,25 +1,16 @@
-
 require 'csv'
 require_relative 'invoice_item'
-
-
-
+require_relative 'engine'
 
 class InvoiceItemsRepository
   attr_reader :invoice_items
 
-  def initialize
+  def initialize(engine)
+    @engine = engine
     file_contents = CSV.open "./data/invoice_items.csv", headers: true, header_converters: :symbol
     @invoice_items = []
     file_contents.each do |row|
-      invoice_item = InvoiceItem.new
-      invoice_item.id = row[:id]
-      invoice_item.item_id = row[:item_id]
-      invoice_item.invoice_id = row[:invoice_id]
-      invoice_item.quantity = row[:quantity]
-      invoice_item.unit_price = row[:unit_price]
-      invoice_item.created_at = row[:created_at]
-      invoice_item.updated_at = row[:updated_at]
+      invoice_item = InvoiceItem.new(row, self)
       @invoice_items << invoice_item
     end
   end
@@ -29,7 +20,7 @@ class InvoiceItemsRepository
   end
 
   def output_file_contents
-    contents = File.read("data/invoice_items.csv")
+    File.read("data/invoice_items.csv")
   end
 
   def all
@@ -90,13 +81,9 @@ class InvoiceItemsRepository
     @invoice_items.find {|invoice_item| invoice_item.updated_at.to_s == time}
   end
 
-
   def find_all_by_updated_at(time)
     @invoice_items.find_all {|invoice_item| invoice_item.updated_at.to_s == time}
   end
-
-
-
 end
 
 

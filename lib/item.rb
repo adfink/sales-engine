@@ -1,24 +1,22 @@
-require './lib/invoices_repository'
+require './lib/items_repository'
 
-class Invoice
+class Item
 attr_accessor :id,
-              :customer_id,
+              :name,
+              :description,
+              :unit_price,
               :merchant_id,
-              :status,
               :created_at,
               :updated_at
 
   def initialize(row, repository)
     @repository  = repository
     @id          = row[:id]
-    @customer_id = row[:customer_id]
+    @name        = row[:name]
+    @description = row[:description]
+    @unit_price  = row[:unit_price]
     @merchant_id = row[:merchant_id]
-    @status      = row[:status]
     @created_at  = row[:created_at]
     @updated_at  = row[:updated_at]
-  end
-
-  def global_engine
-    @repository.engine
   end
 end
