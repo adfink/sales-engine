@@ -26,4 +26,13 @@ class Engine
     @customers_repository     = CustomersRepository.new(self, "#{@dir}/customers.csv")
     @transactions_repository  = TransactionsRepository.new(self, "#{@dir}/transactions.csv")
   end
+
+
+  def find_all_items_by_merchant_id(merchant_id)
+    @items_repository.find_all_by_merchant_id(merchant_id)
+  end
+
+
+
+
 end

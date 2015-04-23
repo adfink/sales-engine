@@ -58,4 +58,26 @@ attr_reader :merchants, :engine
   def find_all_by_updated_at(time)
     @merchants.find_all {|merchant| merchant.updated_at.to_s == time}
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def find_all_items_by_merchant_id(merchant_id)
+    @engine.find_all_items_by_merchant_id(merchant_id)
+  end
+
+
+
+
+
 end

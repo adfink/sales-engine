@@ -13,7 +13,6 @@ attr_reader :customers, :engine
   def generate_customers(filepath)
     file_contents = CSV.open filepath, headers: true, header_converters: :symbol
     file_contents.map{|row| Customer.new(row, self)}
-
   end
 
   def check_for_file
