@@ -5,14 +5,14 @@ require './lib/engine'
 class TransactionsRepository
 attr_reader :transactions
 
-  def initialize(engine)
+  def initialize(engine, filepath)
     @engine = engine
-    file_contents = CSV.open "./data/transactions.csv", headers: true, header_converters: :symbol
-    @transactions = []
-    file_contents.each do |row|
-      transaction = Transactions.new(row, self)
-      @transactions << transaction
-    end
+    @transactions = generate_transactions(filepath)
+  end
+
+  def generate_transactions(filepath)
+    file_contents = CSV.open filepath, headers: true, header_converters: :symbol
+    file_contents.map{|row| Transactions.new(row, self)}
   end
 
   def check_for_file

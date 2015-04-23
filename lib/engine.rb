@@ -12,17 +12,18 @@ class Engine
               :invoice_items_repository,
               :customers_repository,
               :transactions_repository
+              :dir
 
-  def initialize(repository)
-    @repository = repository
+  def initialize(dir)
+    @dir = dir
   end
 
   def startup
-    @merchants_repository     = MerchantsRepository.new(self)
-    @invoices_repository      = InvoicesRepository.new(self)
-    @items_repository         = ItemsRepository.new(self)
-    @invoice_items_repository = InvoiceItemsRepository.new(self)
-    @customers_repository     = CustomersRepository.new(self)
-    @transactions_repository  = TransactionsRepository.new(self)
+    @merchants_repository     = MerchantsRepository.new(self, "#{@dir}/merchants.csv")
+    @invoices_repository      = InvoicesRepository.new(self, "#{@dir}/invoices.csv")
+    @items_repository         = ItemsRepository.new(self, "#{@dir}/items.csv")
+    @invoice_items_repository = InvoiceItemsRepository.new(self, "#{@dir}/invoices.csv")
+    @customers_repository     = CustomersRepository.new(self, "#{@dir}/customers.csv")
+    @transactions_repository  = TransactionsRepository.new(self, "#{@dir}/transactions.csv")
   end
 end

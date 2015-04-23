@@ -5,14 +5,14 @@ require_relative 'engine'
 class InvoiceItemsRepository
   attr_reader :invoice_items
 
-  def initialize(engine)
+  def initialize(engine, filepath)
     @engine = engine
-    file_contents = CSV.open "./data/invoice_items.csv", headers: true, header_converters: :symbol
-    @invoice_items = []
-    file_contents.each do |row|
-      invoice_item = InvoiceItem.new(row, self)
-      @invoice_items << invoice_item
-    end
+    @invoice_items = generate_invoice_items(filepath)
+  end
+
+  def generate_invoice_items(filepath)
+  file_contents = CSV.open filepath, headers: true, header_converters: :symbol
+  file_contents.map{|row| InvoiceItem.new(row, self)}
   end
 
   def check_for_file
