@@ -7,9 +7,11 @@ class InvoiceItem
                 :quantity,
                 :unit_price,
                 :created_at,
-                :updated_at
+                :updated_at,
+                :row
 
   def initialize(row, repository)
+    @row = row
     @repository = repository
     @id         = row[:id]
     @item_id    = row[:item_id]
@@ -30,5 +32,9 @@ class InvoiceItem
 
   def item
     @repository.find_item_by_item_id(id)
+  end
+
+  def total_cost
+    quantity.to_i * unit_price.to_i
   end
 end
