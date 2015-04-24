@@ -30,7 +30,6 @@ class EngineTest < MiniTest::Test
 
   #can't figure out why this one is returning an empty array
   def test_that_it_can_return_invoice_item_instances_by_invoice_id
-    skip
     engine = Engine.new("./data")
     engine.startup
     assert_equal ["1", "2", "3", "4", "5", "6", "7", "8"], engine.find_all_invoice_items_by_invoice_id("1").map{|invoice_item| invoice_item.id}
@@ -64,10 +63,9 @@ class EngineTest < MiniTest::Test
 
   # there must be something going on with the invoice items repo, because it isn't returning any values...
   def test_that_it_can_return_invoice_item_instances_by_item_id
-    skip
-    engine = Engine.new("./data")
+    engine = Engine.new("./fixtures")
     engine.startup
-    assert_equal ["1"], engine.find_all_invoice_items_by_item_id("539")
+    assert_equal ["1"], engine.find_all_invoice_items_by_item_id("539").map {|invoice_item| invoice_item.id}
   end
 
   def test_that_it_can_return_invoice_instances_by_customer_id
