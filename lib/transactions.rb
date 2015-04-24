@@ -17,4 +17,12 @@ class Transactions
     @credit_card_expiration_date = row[:credit_card_expiration_date]
     @result                      = row[:result]
   end
+
+  def inspect
+    "transaction number #{id}"
+  end
+
+  def invoice
+    @repository.find_invoice_by_invoice_id(invoice_id)
+  end
 end

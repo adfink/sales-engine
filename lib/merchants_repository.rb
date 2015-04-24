@@ -10,9 +10,13 @@ attr_reader :merchants, :engine
     @merchants = generate_merchants(filepath)
   end
 
+  def inspect
+    "merchant repository containing #{@merchants.count} items"
+  end
+
   def generate_merchants(filepath)
     output = CSV.open filepath, headers: true, header_converters: :symbol
-    output.map {|row| Merchant.new(row, self)}
+    output.map{|row| Merchant.new(row, self)}
   end
 
   def check_for_file(filepath)

@@ -18,12 +18,12 @@ attr_accessor :id,
     @updated_at  = row[:updated_at]
   end
 
-  def transactions
-    @repository.find_all_transactions_by_invoice_id(id)
+  def inspect
+    "invoice number #{id}"
   end
 
-  def invoice_items
-    @repository.find_all_invoice_items_by_invoice_id(id)
+  def transactions
+    @repository.find_all_transactions_by_invoice_id(id)
   end
 
   def items
@@ -36,5 +36,9 @@ attr_accessor :id,
 
   def merchant
     @repository.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def invoice_items
+    @repository.find_all_invoice_items_by_invoice_id(id)
   end
 end

@@ -1,6 +1,6 @@
 require 'csv'
-require_relative 'invoice_item'
-require_relative 'engine'
+require './lib/invoice_item'
+require './lib/engine'
 
 class InvoiceItemsRepository
   attr_reader :invoice_items
@@ -8,6 +8,10 @@ class InvoiceItemsRepository
   def initialize(engine, filepath)
     @engine = engine
     @invoice_items = generate_invoice_items(filepath)
+  end
+
+  def inspect
+    "invoice item repository containing #{@invoice_items.count} items"
   end
 
   def generate_invoice_items(filepath)
@@ -81,6 +85,18 @@ class InvoiceItemsRepository
 
   def find_all_by_updated_at(time)
     @invoice_items.find_all {|invoice_item| invoice_item.updated_at.to_s == time}
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    @engine.find_all_invoice_items_by_invoice_id(invoice_id)
+  end
+
+  def find_invoice_by_invoice_id(invoice_id)
+    @engine.find_invoice_by_invoice_id(invoice_id)
+  end
+
+  def find_item_by_item_id(item_id)
+    @engine.find_item_by_item_id(item_id)
   end
 end
 

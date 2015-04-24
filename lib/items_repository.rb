@@ -10,9 +10,13 @@ class ItemsRepository
     @items = generate_items(filepath)
   end
 
+  def inspect
+    "item repository containing #{@items.count} items"
+  end
+
   def generate_items(filepath)
     output = CSV.open filepath, headers: true, header_converters: :symbol
-    output.map {|row| Item.new(row, self)}
+    output.map{|row| Item.new(row, self)}
   end
 
   # def output_file_contents
@@ -79,8 +83,8 @@ class ItemsRepository
     @items.find_all {|item| item.updated_at.to_s == time}
   end
 
-  def get_items(array)
-    array.map{|element| find_by_item_id(element)}
+  def find_all_invoice_items_by_item_id(item_id)
+    @engine.find_all_invoice_items_by_item_id(item_id)
   end
 end
 

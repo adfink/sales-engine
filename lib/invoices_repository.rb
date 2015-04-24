@@ -10,6 +10,10 @@ class InvoicesRepository
     @invoices = generate_invoices(filepath)
   end
 
+  def inspect
+    "invoice repository containing #{@invoices.count} items"
+  end
+
   def generate_invoices(filepath)
     file_contents = CSV.open filepath, headers: true, header_converters: :symbol
     file_contents.map{|row| Invoice.new(row, self)}

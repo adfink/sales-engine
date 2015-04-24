@@ -19,4 +19,12 @@ attr_accessor :id,
     @created_at  = row[:created_at]
     @updated_at  = row[:updated_at]
   end
+
+  def inspect
+    "item number #{id}"
+  end
+
+  def invoice_items
+    @repository.find_all_invoice_items_by_item_id(id)
+  end
 end
