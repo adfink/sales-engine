@@ -1,5 +1,5 @@
 require_relative 'merchants_repository'
-
+require 'pry'
 class Merchant
 attr_accessor :id, :name, :created_at, :updated_at
 
@@ -16,10 +16,18 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def items
-    @repository.find_all_items_by_merchant_id(:id)
+    @repository.find_all_items_by_merchant_id(id)
   end
 
+#fix the merchant typo
   def invoices
-    @repository.find_all_invoices_by_merchand_id(:id)
+    @repository.find_all_invoices_by_merchant_id(id)
+  end
+
+  def revenue
+    @repository.find_revenue(id)
   end
 end
+
+
+
