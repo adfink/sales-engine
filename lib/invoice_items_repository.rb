@@ -87,10 +87,6 @@ class InvoiceItemsRepository
     @invoice_items.find_all {|invoice_item| invoice_item.updated_at.to_s == time}
   end
 
-  def find_all_invoice_items_by_invoice_id(invoice_id)
-    @engine.find_all_invoice_items_by_invoice_id(invoice_id)
-  end
-
   def find_invoice_by_invoice_id(invoice_id)
     @engine.find_invoice_by_invoice_id(invoice_id)
   end
