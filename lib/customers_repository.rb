@@ -10,6 +10,10 @@ attr_reader :customers, :engine
     @customers = generate_customers(filepath)
   end
 
+  def inspect
+    "customer repository containing #{@customers.count} items"
+  end
+
   def generate_customers(filepath)
     file_contents = CSV.open filepath, headers: true, header_converters: :symbol
     file_contents.map{|row| Customer.new(row, self)}
@@ -65,5 +69,9 @@ attr_reader :customers, :engine
 
   def find_all_by_updated_at(time)
     @customers.find_all {|customer| customer.updated_at.to_s == time}
+  end
+
+  def find_all_invoices_by_customer_id(customer_id)
+    @engine.find_all_invoices_by_customer_id(customer_id)
   end
 end

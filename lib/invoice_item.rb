@@ -20,7 +20,15 @@ class InvoiceItem
     @updated_at = row[:updated_at]
   end
 
-  def global_engine
-    @repository.engine
+  def inspect
+    "invoice item number #{id}"
+  end
+
+  def invoice
+    @repository.find_invoice_by_invoice_id(id)
+  end
+
+  def item
+    @repository.find_item_by_item_id(id)
   end
 end

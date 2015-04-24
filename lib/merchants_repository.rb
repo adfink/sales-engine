@@ -10,9 +10,13 @@ attr_reader :merchants, :engine
     @merchants = generate_merchants(filepath)
   end
 
+  def inspect
+    "merchant repository containing #{@merchants.count} items"
+  end
+
   def generate_merchants(filepath)
     output = CSV.open filepath, headers: true, header_converters: :symbol
-    output.map {|row| Merchant.new(row, self)}
+    output.map{|row| Merchant.new(row, self)}
   end
 
   def check_for_file(filepath)
@@ -59,25 +63,12 @@ attr_reader :merchants, :engine
     @merchants.find_all {|merchant| merchant.updated_at.to_s == time}
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  def find_all_items_by_merchant_id(merchant_id)
-    @engine.find_all_items_by_merchant_id(merchant_id)
+  def find_all_items_by_id(id)
+    @engine.find_all_items_by_merchant_id(id)
   end
 
-
-
-
-
+  def find_all_invoices_by_merchand_id(id)
+    @engine.find_all_invoices_by_merchand_id(id)
+  end
+  #typo here in merchand merchant
 end

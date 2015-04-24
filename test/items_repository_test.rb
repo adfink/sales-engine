@@ -54,7 +54,7 @@ class ItemsRepositoryTest < MiniTest::Test
 
   def test_it_can_find_all_by_unit_price
     items_repo = ItemsRepository.new(nil, "./fixtures/items.csv")
-    assert_equal ["1", "9"], items_repo.find_all_by_unit_price("75107").map {|item| item.id}
+    assert_equal ["1", "9"], items_repo.find_all_by_unit_price("75107").map{|item| item.id}
   end
 
   def test_it_can_find_by_unit_price

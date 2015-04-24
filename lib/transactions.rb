@@ -18,7 +18,11 @@ class Transactions
     @result                      = row[:result]
   end
 
-  def global_engine
-    @repository.engine
+  def inspect
+    "transaction number #{id}"
+  end
+
+  def invoice
+    @repository.find_invoice_by_invoice_id(invoice_id)
   end
 end
