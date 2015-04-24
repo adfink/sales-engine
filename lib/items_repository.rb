@@ -10,15 +10,18 @@ class ItemsRepository
     @items = generate_items(filepath)
   end
 
+  def inspect
+    "item repository containing #{@items.count} items"
+  end
+
   def generate_items(filepath)
     output = CSV.open filepath, headers: true, header_converters: :symbol
-    output.map {|row| Item.new(row, self)}
-
+    output.map{|row| Item.new(row, self)}
   end
 
-  def output_file_contents
-    File.read"./data/items.csv"
-  end
+  # def output_file_contents
+  #   File.read"./data/items.csv"
+  # end
 
   def all
     @items
@@ -60,8 +63,8 @@ class ItemsRepository
     @items.find {|item| item.merchant_id == merchant}
   end
 
-  def find_all_by_merchant_id(merchant)
-    @items.find_all {|item| item.merchant_id == merchant}
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all {|item| item.merchant_id == merchant_id}
   end
 
   def find_by_created_at(time)
@@ -78,6 +81,10 @@ class ItemsRepository
 
   def find_all_by_updated_at(time)
     @items.find_all {|item| item.updated_at.to_s == time}
+  end
+
+  def find_all_invoice_items_by_item_id(item_id)
+    @engine.find_all_invoice_items_by_item_id(item_id)
   end
 end
 

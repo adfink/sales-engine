@@ -16,12 +16,11 @@ attr_accessor :id,
     @updated_at = row[:updated_at]
   end
 
-  def global_engine
-    @repository.engine
+  def inspect
+    "customer number #{id}"
   end
-  #
-  # def invoices
-  #   repo = global_engine.invoice_repo
-  #   repo.find_by_customer_id(@id)
-  # end
+
+  def invoices
+    @repository.find_all_invoices_by_customer_id(id)
+  end
 end
