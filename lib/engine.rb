@@ -22,7 +22,7 @@ class Engine
     @merchants_repository     = MerchantsRepository.new(self, "#{@dir}/merchants.csv")
     @invoices_repository      = InvoicesRepository.new(self, "#{@dir}/invoices.csv")
     @items_repository         = ItemsRepository.new(self, "#{@dir}/items.csv")
-    @invoice_items_repository = InvoiceItemsRepository.new(self, "#{@dir}/invoices.csv")
+    @invoice_items_repository = InvoiceItemsRepository.new(self, "#{@dir}/invoice_items.csv")
     @customers_repository     = CustomersRepository.new(self, "#{@dir}/customers.csv")
     @transactions_repository  = TransactionsRepository.new(self, "#{@dir}/transactions.csv")
   end
@@ -41,7 +41,9 @@ class Engine
 
   def find_all_items_by_invoice_id(invoice_id)
     invoice_items = @invoice_items_repository.find_all_by_invoice_id(invoice_id)
+    #returns an array of invoice items
     item_ids = invoice_items.map{|item| item.item_id}
+    #iterates over that array and pulls out each item id
     @items_repository.get_items(item_ids)
   end
 
