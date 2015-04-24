@@ -4,6 +4,8 @@ require './lib/items_repository'
 require './lib/invoice_items_repository'
 require './lib/customers_repository'
 require './lib/transactions_repository'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 class Engine
   attr_reader :merchants_repository,
@@ -104,9 +106,9 @@ class Engine
   #reduce array once all the invoice price totals have been collected
 
   def revenue_of_merchant(merchant_id)
-    find_all_invoices_by_merchant_id(merchant_id).map do |invoice|
-      find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
-    end.inject(:+)
+    (find_all_invoices_by_merchant_id(merchant_id).map do |invoice|
+        find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
+    end.inject(:+).to_d/100).round(2).to_digits
   end
 
 

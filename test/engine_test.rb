@@ -9,7 +9,6 @@ class EngineTest < MiniTest::Test
     assert engine
   end
 
-
   def test_it_can_return_item_instances_by_merchant_id
     engine = Engine.new("./fixtures")
     engine.startup
@@ -80,6 +79,6 @@ class EngineTest < MiniTest::Test
   def test_that_it_returns_revenue_of_a_single_merchant
     engine = Engine.new("./data")
     engine.startup
-    assert_equal 56612301, engine.revenue_of_merchant("1")
+    assert_equal "566123.01", engine.revenue_of_merchant("1")
   end
 end
