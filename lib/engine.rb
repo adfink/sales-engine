@@ -41,11 +41,10 @@ class Engine
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    invoice_items = @invoice_items_repository.find_all_by_invoice_id(invoice_id)
+    @invoice_items_repository.find_all_by_invoice_id(invoice_id).map{|item| item.item_id}.map{|id| @items_repository.find_by_id(id)}
     #returns an array of invoice items
-    item_ids = invoice_items.map{|item| item.item_id}
-    #iterates over that array and pulls out each item id
-    @items_repository.get_items(item_ids)
+    #iterates over that array and pulls out each item ID
+    #iterates over that array and pulls each item instance by ID
   end
 
   def find_customer_by_customer_id(customer_id)
