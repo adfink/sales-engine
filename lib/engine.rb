@@ -111,4 +111,19 @@ class Engine
     end.inject(:+).to_d/100).round(2).to_digits
   end
 
+  def revenue_by_merchant_id_and_invoice_date(merchant_id, date)
+    (find_all_invoices_by_merchant_id(merchant_id).find_all {|invoice| invoice.created_at[0..9] == date}.map do |invoice|
+      find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
+    end.inject(:+).to_d/100).round(2).to_digits
+
+  end
+
+
+
+
+
+
+
+
+
 end
