@@ -27,11 +27,10 @@ attr_accessor :id, :name, :created_at, :updated_at
     @repository.find_revenue_by_id(id)
   end
 
-  # def merchant_revenue_by_invoice_date(date)
-  #   (invoices.find_all{|invoice| invoice.created_at == date}.map do |invoice|
-  #     find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
-  #   end.inject(:+).to_d/100).round(2).to_digits
-  # end
+  def revenue(date)
+    @repository.find_revenue_by_id_by_date(id, date)
+
+  end
 end
 
 
