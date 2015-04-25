@@ -8,12 +8,12 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 
 class Engine
-  attr_reader :merchants_repository,
-              :invoices_repository,
+  attr_reader :invoices_repository,
               :items_repository,
               :invoice_items_repository,
               :customers_repository,
-              :transactions_repository
+              :transactions_repository,
+              :merchants_repository
               :dir
 
   def initialize(dir)
@@ -27,7 +27,49 @@ class Engine
     @invoice_items_repository = InvoiceItemsRepository.new(self, "#{@dir}/invoice_items.csv")
     @customers_repository     = CustomersRepository.new(self, "#{@dir}/customers.csv")
     @transactions_repository  = TransactionsRepository.new(self, "#{@dir}/transactions.csv")
+    # invoices_repository
+    # items_repository
+    # invoice_items_repository
+    # customers_repository
+    # transactions_repository
   end
+  #
+  # def merchants_repository
+  #   @merchants_repository ||= begin
+  #     MerchantsRepository.new(self, "#{@dir}/merchants.csv")
+  #   end
+
+  # end
+  #
+  # def invoices_repository
+  #   @invoices_repository ||= begin
+  #     InvoicesRepository.new(self, "#{@dir}/invoices.csv")
+  #   end
+  # end
+  #
+  # def items_repository
+  #   @items_repository ||= begin
+  #     ItemsRepository.new(self, "#{@dir}/items.csv")
+  #   end
+  # end
+  #
+  # def invoice_items
+  #   @invoice_items_repository ||= begin
+  #     InvoiceItemsRepository.new(self, "#{@dir}/invoice_items.csv")
+  #   end
+  # end
+  #
+  # def customers_repository
+  #   @customers_repository ||= begin
+  #     CustomersRepository.new(self, "#{@dir}/customers.csv")
+  #   end
+  # end
+  #
+  # def transactions_repository
+  #   @transactions_repository ||= begin
+  #     TransactionsRepository.new(self, "#{@dir}/transactions.csv")
+  #   end
+  # end
 
 
   def find_all_items_by_merchant_id(merchant_id)
