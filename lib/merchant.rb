@@ -19,13 +19,12 @@ attr_accessor :id, :name, :created_at, :updated_at
     @repository.find_all_items_by_merchant_id(id)
   end
 
-#fix the merchant typo
   def invoices
     @repository.find_all_invoices_by_merchant_id(id)
   end
 
-  def revenue
-    @repository.find_revenue(id)
+  def merchant_revenue_by_id
+    @repository.find_revenue_by_id(id)
   end
 end
 
