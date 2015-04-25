@@ -85,7 +85,7 @@ class EngineTest < MiniTest::Test
   def test_that_it_returns_revenue_of_a_single_merchant_on_a_single_day
     engine = Engine.new("./data")
     engine.startup
-    assert_equal "24641.43", engine.find_all_invoices_by_merchant_id_and_invoice_date("1", "2012-03-25")
+    assert_equal "24641.43", engine.revenue_by_merchant_id_and_invoice_date("1", "2012-03-25")
 
   end
 
