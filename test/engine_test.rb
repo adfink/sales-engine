@@ -86,7 +86,6 @@ class EngineTest < MiniTest::Test
     engine = Engine.new("./data")
     engine.startup
     assert_equal "24641.43", engine.revenue_by_merchant_id_and_invoice_date("1", "2012-03-25")
-
   end
 
 

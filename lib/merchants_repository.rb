@@ -76,6 +76,6 @@ attr_reader :merchants, :engine
   end
 
   def find_revenue_by_id_by_date(id, date)
-    @engine.find_all_invoices_by_merchant_id_and_invoice_date(id, date)
+    @engine.revenue_by_merchant_id_and_invoice_date(id, date)
   end
 end

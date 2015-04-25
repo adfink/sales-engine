@@ -29,7 +29,6 @@ attr_accessor :id, :name, :created_at, :updated_at
 
   def revenue(date)
     @repository.find_revenue_by_id_by_date(id, date)
-
   end
 end
 
