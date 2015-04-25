@@ -4,6 +4,8 @@ require './lib/items_repository'
 require './lib/invoice_items_repository'
 require './lib/customers_repository'
 require './lib/transactions_repository'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 class Engine
   attr_reader :merchants_repository,
@@ -41,9 +43,10 @@ class Engine
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    invoice_items = @invoice_items_repository.find_all_by_invoice_id(invoice_id)
-    item_ids = invoice_items.map{|item| item.item_id}
-    @items_repository.get_items(item_ids)
+    @invoice_items_repository.find_all_by_invoice_id(invoice_id).map{|item| item.item_id}.map{|id| @items_repository.find_by_id(id)}
+    #returns an array of invoice items
+    #iterates over that array and pulls out each item ID
+    #iterates over that array and pulls each item instance by ID
   end
 
   def find_customer_by_customer_id(customer_id)
@@ -102,12 +105,10 @@ class Engine
   # add the unit price of all these invoice items that are on each invoice... push this return value into an array
   #reduce array once all the invoice price totals have been collected
 
-  def revenue_of_merchant(merchant_id)
-    find_all_invoices_by_merchant_id(merchant_id).map do |invoice|
-      find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
-    end.inject(:+)
+  def revenue_of_merchant_by_id(merchant_id)
+    (find_all_invoices_by_merchant_id(merchant_id).map do |invoice|
+        find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
+    end.inject(:+).to_d/100).round(2).to_digits
   end
-
-
 
 end

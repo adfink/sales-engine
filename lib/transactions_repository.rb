@@ -83,7 +83,6 @@ attr_reader :transactions
   def find_invoice_by_invoice_id(invoice_id)
     @engine.find_invoice_by_invoice_id(invoice_id)
   end
-
 end
 
 

@@ -35,9 +35,8 @@ attr_reader :merchants, :engine
     @merchants.sample
   end
 
-
-  def find_revenue(id)
-    @engine.revenue_of_merchant(id)
+  def find_revenue_by_id(id)
+    @engine.revenue_of_merchant_by_id(id)
   end
 
   def find_by_id(number)
@@ -75,5 +74,4 @@ attr_reader :merchants, :engine
   def find_all_invoices_by_merchant_id(id)
     @engine.find_all_invoices_by_merchant_id(id)
   end
-  #typo here in merchand merchant
 end
