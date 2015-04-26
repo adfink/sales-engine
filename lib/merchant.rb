@@ -27,12 +27,27 @@ attr_accessor :id, :name, :created_at, :updated_at
     @repository.find_revenue_by_id(id)
   end
 
-  def revenue(date)
-    @repository.find_revenue_by_id_by_date(id, date)
-
+  def revenue(date = nil)
+    date ? merchant_revenue(date) : merchant_revenue_by_id
   end
 
+  def merchant_revenue(date)
+    @repository.find_revenue_by_id_by_date(id, date)
+  end
 
+  def favorite_customer
+   @repository.find_customer_for_each_successful_invoice(successful_invoices)
+  end
+
+  def successful_invoices
+    @repository.find_successful_invoices(invoices)
+  end
+
+  def customers_with_pending_invoices
+    crappy_invoices = invoices.select{|invoice| invoice.successful? == false}
+    pending_customer_ids = crappy_invoices.map{|invoice| invoice.customer_id}
+    pending_customer_ids.map {|customer_id| @repository.find_customer_by_customer_id(customer_id)}
+  end
 end
 
 

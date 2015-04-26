@@ -76,6 +76,26 @@ attr_reader :merchants, :engine
   end
 
   def find_revenue_by_id_by_date(id, date)
-    @engine.find_all_invoices_by_merchant_id_and_invoice_date(id, date)
+    @engine.revenue_by_merchant_id_and_invoice_date(id, date)
+  end
+
+  def find_successful_invoices(invoices)
+    @engine.find_successful_invoices(invoices)
+  end
+
+  def find_customer_for_each_successful_invoice(successful_invoices)
+    good_invoices = successful_invoices.group_by{|invoice| invoice.customer_id}
+    best_customer_id = good_invoices.map{|k, v| [v.size, k]}.sort[-1][-1]
+    @engine.find_customer_by_customer_id(best_customer_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    @engine.customers_repository.find_by_id(customer_id)
+  end
+
+  def most_revenue(number_of_merchants)
+    merchants_revenue = merchants.map{|merchant| [merchant.revenue, merchant.id]}
+    sorted_merchants = merchants_revenue.sort
+    sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
   end
 end

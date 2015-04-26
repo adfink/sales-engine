@@ -68,4 +68,10 @@ class MerchantsRepositoryTest < Minitest::Test
     merchants_repo = MerchantsRepository.new(nil, "./fixtures/merchants.csv")
     assert_equal "1", merchants_repo.find_by_updated_at("2012-03-27 14:53:59 UTC").id
   end
+
+  def test_it_can_find_the_top_x_merchants_by_rev
+    engine = Engine.new("./data")
+    engine.startup
+    assert_equal ["66", "69", "84", "36", "90", "53", "79", "61", "10", "98"], engine.merchants_repository.most_revenue(10).map{|merchant| merchant.id}
+  end
 end
