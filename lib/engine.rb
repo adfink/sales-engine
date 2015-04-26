@@ -6,6 +6,7 @@ require './lib/customers_repository'
 require './lib/transactions_repository'
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'pry'
 
 class Engine
   attr_reader :invoices_repository,

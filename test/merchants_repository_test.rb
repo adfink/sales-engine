@@ -5,6 +5,10 @@ require './lib/merchants_repository.rb'
 
 class MerchantsRepositoryTest < Minitest::Test
 
+  def setup
+    @engine = Engine.new("./data")
+    @engine.startup
+  end
   def test_it_can_recognize_its_fixtures_file
     merchants_repo = MerchantsRepository.new(nil, "./fixtures/merchants.csv")
     assert merchants_repo.check_for_file("./fixtures/merchants.csv")
@@ -70,8 +74,25 @@ class MerchantsRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_the_top_x_merchants_by_rev
-    engine = Engine.new("./data")
-    engine.startup
-    assert_equal ["66", "69", "84", "36", "90", "53", "79", "61", "10", "98"], engine.merchants_repository.most_revenue(10).map{|merchant| merchant.id}
+    # engine = Engine.new("./data")
+    # engine.startup
+    assert_equal ["66", "69", "84", "36", "90", "53", "79", "61", "10", "98"], @engine.merchants_repository.most_revenue(10).map{|merchant| merchant.id}
+  end
+
+  def test_that_it_can_return_all_items_by_merchant_id
+    # engine = Engine.new("./data")
+    # engine.startup
+    assert_equal ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"], @engine.find_all_items_by_merchant_id("1").map{|item| item.id}
+  end
+
+  def test_that_it_can_return_the_top_x_merchants_by_items
+    # engine = Engine.new("./data")
+    # engine.startup
+    assert_equal ["37", "38", "39", "40", "5", "41", "42", "43", "44", "45"], @engine.merchants_repository.most_items(10).map{|merchant| merchant.id}
+  end
+
+  def test_that_it_can_return_the_total_revenue_by_x_date
+    skip
+    assert_equal "", @engine.merchants_repository.revenue("2012-03-27 14:53:59 UTC")
   end
 end
