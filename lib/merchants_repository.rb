@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/merchant'
 require './lib/engine'
+require 'pry'
 
 class MerchantsRepository
 attr_reader :merchants, :engine
@@ -97,5 +98,21 @@ attr_reader :merchants, :engine
     merchants_revenue = merchants.map{|merchant| [merchant.revenue, merchant.id]}
     sorted_merchants = merchants_revenue.sort
     sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
+  end
+
+  def most_items(number_of_merchants)
+    merchants_items = merchants.map{|merchant| [merchant.items.map{|item| item.id}, merchant.id]}
+    sorted_merchants = merchants_items.sort
+    sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
+  end
+
+  def find_all_items_by_merchant_id(id)
+    @engine.find_all_items_by_merchant_id(id)
+  end
+
+# for some reason the revenue method is returning nil just before .to_d in engine class--everything else appears to be working.
+# We suspect that this is happening because some merchants sold nothing on this date and thus have "nil" revenue.
+  def revenue(date)
+    merchants.map{|merchant| merchant.revenue(date)}
   end
 end
