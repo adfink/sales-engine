@@ -88,4 +88,14 @@ attr_reader :merchants, :engine
     best_customer_id = good_invoices.map{|k, v| [v.size, k]}.sort[-1][-1]
     @engine.find_customer_by_customer_id(best_customer_id)
   end
+
+  def find_customer_by_customer_id(customer_id)
+    @engine.customers_repository.find_by_id(customer_id)
+  end
+
+  def most_revenue(number_of_merchants)
+    merchants_revenue = merchants.map{|merchant| [merchant.revenue, merchant.id]}
+    sorted_merchants = merchants_revenue.sort
+    sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
+  end
 end

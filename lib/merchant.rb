@@ -42,6 +42,12 @@ attr_accessor :id, :name, :created_at, :updated_at
   def successful_invoices
     @repository.find_successful_invoices(invoices)
   end
+
+  def customers_with_pending_invoices
+    crappy_invoices = invoices.select{|invoice| invoice.successful? == false}
+    pending_customer_ids = crappy_invoices.map{|invoice| invoice.customer_id}
+    pending_customer_ids.map {|customer_id| @repository.find_customer_by_customer_id(customer_id)}
+  end
 end
 
 

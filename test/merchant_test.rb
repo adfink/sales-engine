@@ -33,4 +33,8 @@ class MerchantTest < MiniTest::Test
    assert_equal "528774.64", @merchant.revenue
    assert_equal "573424.54", @merchant34.revenue
   end
+
+  def test_that_it_returns_customers_with_unsuccessful_invoices
+  assert_equal "3", @merchant34.customers_with_pending_invoices[0].id
+  end
 end
