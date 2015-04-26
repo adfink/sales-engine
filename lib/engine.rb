@@ -157,7 +157,25 @@ class Engine
     (find_all_invoices_by_merchant_id(merchant_id).find_all {|invoice| invoice.created_at[0..9] == date}.map do |invoice|
       find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
     end.inject(:+).to_d/100).round(2).to_digits
+    # binding.pry
   end
+
+  # def find_favorite_customer_by_most_successful_transactions(hash_of_invoices_grouped_by_customers)
+  #   @transactions_repository.find_all_by_result("success")
+  # end
+
+  def is_this_invoice_successful?(invoice_id)
+    @transactions_repository.find_all_by_invoice_id(invoice_id).any? {|transaction|  transaction.result == "success"}
+  end
+
+  def find_successful_invoices(invoices)
+    invoices.select{|invoice| invoice.successful?}
+  end
+
+  def find_customer_for_each_successful_invoice
+    find_successful_invoices.map{|invoice| invoice.customer_id}
+  end
+
 
 
 

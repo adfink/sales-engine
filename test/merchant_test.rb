@@ -10,16 +10,22 @@ class MerchantTest < MiniTest::Test
     engine.startup
     @merchant = engine.merchants_repository.find_by_id("1")
     @merchant2 = engine.merchants_repository.find_by_id("2")
+    @merchant3 = engine.merchants_repository.find_by_id("3")
+    @merchant4 = engine.merchants_repository.find_by_id("4")
+    @merchant5 = engine.merchants_repository.find_by_id("5")
   end
 
-  # def test_that_it_returns_merchant_attributes
-  #   assert_equal "Schroeder-Jerde", @merchant.name
-  #   assert_equal "2012-03-27 14:53:59 UTC", @merchant.created_at
-  #   assert_equal "2012-03-27 14:53:59 UTC", @merchant.updated_at
-  # end
-  #
-  # def test_that_it_can_return_revenue_by_invoice_date
-  #   assert_equal "24641.43", @merchant.revenue("2012-03-27 14:53:59 UTC")
-  # end
+  def test_that_it_returns_merchant_attributes
+    assert_equal "Schroeder-Jerde", @merchant.name
+    assert_equal "2012-03-27 14:53:59 UTC", @merchant.created_at
+    assert_equal "2012-03-27 14:53:59 UTC", @merchant.updated_at
+  end
 
+  def test_that_it_returns_invoices
+    assert_equal 59, @merchant.invoices.count
+  end
+
+  def test_that_it_can_find_its_favorite_customer
+    assert_equal "921", @merchant4.favorite_customer.id
+  end
 end

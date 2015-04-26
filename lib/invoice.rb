@@ -41,4 +41,8 @@ attr_accessor :id,
   def invoice_items
     @repository.find_all_invoice_items_by_invoice_id(id)
   end
+
+  def successful?
+    @repository.am_i_succesful?(id)
+  end
 end

@@ -59,7 +59,6 @@ attr_reader :transactions
     @transactions.find {|transaction| transaction.created_at.to_s == time}
   end
 
-
   def find_all_by_created_at(time)
     @transactions.find_all {|transaction| transaction.created_at.to_s == time}
   end
