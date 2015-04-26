@@ -1,12 +1,13 @@
 require 'minitest/pride'
 require 'minitest/autorun'
 require './lib/items_repository'
+require 'pry'
 
 class ItemsRepositoryTest < MiniTest::Test
 
   def setup
-    engine = Engine.new("./data")
-    engine.startup
+    @engine = Engine.new("./data")
+    @engine.startup
   end
 
   def test_that_it_exists
@@ -100,8 +101,6 @@ class ItemsRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_return_top_x_items_by_total_revenue
-    skip
-    items_repo = ItemsRepository.new(nil, "./data/items.csv")
-    assert_equal "1", items_repo.most_revenue(10)
+    assert_equal "1", @engine.items_repository.most_revenue(10)
   end
 end
