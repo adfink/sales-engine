@@ -4,6 +4,11 @@ require './lib/items_repository'
 
 class ItemsRepositoryTest < MiniTest::Test
 
+  def setup
+    engine = Engine.new("./data")
+    engine.startup
+  end
+
   def test_that_it_exists
     items_repo = ItemsRepository.new(nil, "./fixtures/items.csv")
     assert items_repo
@@ -92,5 +97,10 @@ class ItemsRepositoryTest < MiniTest::Test
   def test_it_can_find_by_updated_at
     items_repo = ItemsRepository.new(nil, "./fixtures/items.csv")
     assert_equal "1", items_repo.find_by_updated_at("2012-03-27 14:53:59 UTC").id
+  end
+
+  def test_it_can_return_top_x_items_by_total_revenue
+    items_repo = ItemsRepository.new(nil, "./data/items.csv")
+    assert_equal "1", items_repo.most_revenue(10)
   end
 end

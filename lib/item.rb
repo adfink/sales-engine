@@ -46,4 +46,8 @@ attr_accessor :id,
     # sort the hash based on number of invoices per date
     invoices_by_date.map{|k, v| [v.size, k[0..9]]}.sort[-1][-1]
   end
+
+  def find_invoice_items(id)
+    @repository.find_all_invoice_items_by_item_id(id)
+  end
 end
