@@ -23,4 +23,16 @@ attr_accessor :id,
   def invoices
     @repository.find_all_invoices_by_customer_id(id)
   end
+
+  def transactions
+    invoices.map{|invoice| invoice.transactions}.flatten
+  end
+
+  def successful_invoices
+    @repository.find_successful_invoices(invoices)
+  end
+
+  def favorite_merchant
+    @repository.find_merchant_for_each_successful_invoice(successful_invoices)
+  end
 end
