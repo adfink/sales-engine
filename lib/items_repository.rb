@@ -86,7 +86,7 @@ class ItemsRepository
   def find_all_invoice_items_by_item_id(item_id)
     engine.find_all_invoice_items_by_item_id(item_id)
   end
-
+  #
   def most_revenue(number_of_items)
     # collect all corresponding invoice items for each item --> array of arrays
     invoice_items = @items.map{|item| item.find_invoice_items(item.id)}
@@ -94,8 +94,31 @@ class ItemsRepository
     items_revenues = invoice_items.map{|invoice_items|  invoice_items.map{|invoice_item| invoice_item.total_cost}}
     # reduce each item's revenue numbers to a single value
     items_revenues.map! {|revenue_collection| revenue_collection.reduce(:+)||0}
-    items_revenues_sorted = items_revenues.sort[-number_of_items..-1]
+    items_revenues.sort[-number_of_items..-1]
     # sort by revenue and take top "number_of_items"
   end
+  #
+
+  def most_revenue(number_of_items)
+    # collect all corresponding invoice items for each item --> array of arrays
+    invoice_items = @items.map{|item| [item.find_invoice_items(item.id), item.id]}
+    # # calculate total cost for each invoice item for each item --> array of arrays
+    items_revenues = invoice_items.map{|invoice_items|  invoice_items.map{|invoice_item, item_id| [invoice_item.total_cost, item_id]}}
+    # # reduce each item's revenue numbers to a single value
+    # items_revenues.map! {|revenue_collection| revenue_collection.reduce(:+)||0}
+    # items_revenues.sort[-number_of_items..-1]
+    # # sort by revenue and take top "number_of_items"
+  end
+
+  def most_revenue(number_of_items)
+    @items.map {|item| item.revenue}
+  end
+
+
+  def find_item_revenue(item_id)
+    @engine.find_this_items_revenue(item_id)
+  end
+
+
 end
 

@@ -94,6 +94,13 @@ class InvoiceItemsRepository
   def find_item_by_item_id(item_id)
     @engine.find_item_by_item_id(item_id)
   end
+
+
+  def am_i_successful?(invoice_id)
+    @engine.invoices_repository.find_by_id(invoice_id).successful?
+  end
+
+
 end
 
 

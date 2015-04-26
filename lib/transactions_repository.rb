@@ -8,6 +8,7 @@ attr_reader :transactions
   def initialize(engine, filepath)
     @engine = engine
     @transactions = generate_transactions(filepath)
+    @successful_transactions = find_all_by_result("success")
   end
 
   def inspect

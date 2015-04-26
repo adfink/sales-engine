@@ -25,4 +25,9 @@ class ItemTest < MiniTest::Test
     assert_equal "2012-03-25", @item4.best_day
     assert_equal "2012-03-27", @item34.best_day
   end
+
+  def test_that_it_can_return_revenue_of_item
+    skip
+    assert_equal "", @item.revenue
+  end
 end
