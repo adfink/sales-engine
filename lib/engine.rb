@@ -119,50 +119,17 @@ class Engine
     @invoice_items_repository.find_all_by_invoice_id(invoice_id)
   end
 
-
-
-
-
-
-
-
-
-  #Business Intelligence problems
-
-  #most_revenue(x) returns the top x merchant instances ranked by total revenue
-    #get into invoice repo and search all by merchant id...now you have a bunch of invoices
-  # now must iterate through each invoice and go over to the invoice items repo with each individual invoice to see what was on that invoice
-  # add the unit price of all these invoice items that are on each invoice... push this return value into and array
-  #reduce array once all the invoice price totals have been collected
-  #do this for every merchant, then sort the results and take the top merchants according to the parameter passed in originally
-
-  def most_revenue(top_x_number_of_merchants)
-
-
-
-  end
-
-  #get into invoice repo and search all by merchant id...now you have a bunch of invoices
-  # now must iterate through each invoice and go over to the invoice items repo with each individual invoice to see what was on that invoice
-  # add the unit price of all these invoice items that are on each invoice... push this return value into an array
-  #reduce array once all the invoice price totals have been collected
-
   def revenue_of_merchant_by_id(merchant_id)
-    (find_all_invoices_by_merchant_id(merchant_id).map do |invoice|
+    (find_all_invoices_by_merchant_id(merchant_id).select{|invoice| invoice.successful?}.map do |invoice|
         find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
     end.inject(:+).to_d/100).round(2).to_digits
   end
 
   def revenue_by_merchant_id_and_invoice_date(merchant_id, date)
-    (find_all_invoices_by_merchant_id(merchant_id).find_all {|invoice| invoice.created_at[0..9] == date}.map do |invoice|
+    (find_all_invoices_by_merchant_id(merchant_id).select{|invoice| invoice.successful?}.find_all {|invoice| invoice.created_at[0..9] == date}.map do |invoice|
       find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
     end.inject(:+).to_d/100).round(2).to_digits
-    # binding.pry
   end
-
-  # def find_favorite_customer_by_most_successful_transactions(hash_of_invoices_grouped_by_customers)
-  #   @transactions_repository.find_all_by_result("success")
-  # end
 
   def is_this_invoice_successful?(invoice_id)
     @transactions_repository.find_all_by_invoice_id(invoice_id).any? {|transaction|  transaction.result == "success"}

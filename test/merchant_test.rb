@@ -12,7 +12,7 @@ class MerchantTest < MiniTest::Test
     @merchant2 = engine.merchants_repository.find_by_id("2")
     @merchant3 = engine.merchants_repository.find_by_id("3")
     @merchant4 = engine.merchants_repository.find_by_id("4")
-    @merchant5 = engine.merchants_repository.find_by_id("5")
+    @merchant34 = engine.merchants_repository.find_by_id("34")
   end
 
   def test_that_it_returns_merchant_attributes
@@ -27,5 +27,10 @@ class MerchantTest < MiniTest::Test
 
   def test_that_it_can_find_its_favorite_customer
     assert_equal "921", @merchant4.favorite_customer.id
+  end
+
+  def test_that_it_returns_revenue_of_a_single_merchant_on_a_single_day
+   assert_equal "528774.64", @merchant.revenue
+   assert_equal "573424.54", @merchant34.revenue
   end
 end

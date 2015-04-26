@@ -17,10 +17,4 @@ class InvoiceTest < MiniTest::Test
     assert_equal true, @invoice2.successful?
     assert_equal false, @invoice3.successful?
   end
-
-
-  # def test_that_it_exists
-  #   invoice = Invoice.new
-  #   assert invoice
-  # end
 end

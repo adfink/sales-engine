@@ -75,18 +75,4 @@ class EngineTest < MiniTest::Test
     engine.startup
     assert_equal "[invoice number 1, invoice number 2, invoice number 3, invoice number 4, invoice number 5, invoice number 6, invoice number 7, invoice number 8]", engine.find_all_invoices_by_customer_id("1").to_s
   end
-
-  def test_that_it_returns_revenue_of_a_single_merchant
-    engine = Engine.new("./data")
-    engine.startup
-    assert_equal "566123.01", engine.revenue_of_merchant_by_id("1")
-  end
-
-  def test_that_it_returns_revenue_of_a_single_merchant_on_a_single_day
-    engine = Engine.new("./data")
-    engine.startup
-    assert_equal "24641.43", engine.revenue_by_merchant_id_and_invoice_date("1", "2012-03-25")
-  end
-
-
 end
