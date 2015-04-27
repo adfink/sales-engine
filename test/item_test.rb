@@ -41,7 +41,10 @@ class ItemTest < MiniTest::Test
   end
 
   def test_that_it_can_return_revenue_of_item
-    skip
-    assert_equal "", @item.revenue
+    assert_equal "21781.03", ((@item.revenue.to_d)/100.round(2)).to_digits
+    assert_equal "13415.2", ((@item2.revenue.to_d)/100.round(2)).to_digits
+    assert_equal "17119.53", ((@item3.revenue.to_d)/100.round(2)).to_digits
+    assert_equal "472.01", ((@item4.revenue.to_d)/100.round(2)).to_digits
+    assert_equal "0.0", ((@item34.revenue.to_d)/100.round(2)).to_digits
   end
 end
