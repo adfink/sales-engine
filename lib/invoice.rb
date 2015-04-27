@@ -30,16 +30,16 @@ attr_accessor :id,
     @repository.find_all_items_by_invoice_id(id)
   end
 
+  def invoice_items
+    @repository.find_all_invoice_items_by_invoice_id(id)
+  end
+
   def customer
     @repository.find_customer_by_customer_id(customer_id)
   end
 
   def merchant
     @repository.find_merchant_by_merchant_id(merchant_id)
-  end
-
-  def invoice_items
-    @repository.find_all_invoice_items_by_invoice_id(id)
   end
 
   def successful?

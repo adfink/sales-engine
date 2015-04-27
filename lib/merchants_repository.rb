@@ -117,6 +117,6 @@ attr_reader :merchants, :engine
 # for some reason the revenue method is returning nil just before .to_d in engine class--everything else appears to be working.
 # We suspect that this is happening because some merchants sold nothing on this date and thus have "nil" revenue.
   def revenue(date)
-    merchants.map{|merchant| merchant.revenue(date)}
+    merchants.reduce(0){|sum, merchant| sum + merchant.revenue(date)}
   end
 end

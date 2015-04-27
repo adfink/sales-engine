@@ -23,10 +23,6 @@ class ItemsRepository
     output.map{|row| Item.new(row, self)}
   end
 
-  # def output_file_contents
-  #   File.read"./data/items.csv"
-  # end
-
   def all
     @items
   end

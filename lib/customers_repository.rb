@@ -78,4 +78,14 @@ attr_reader :customers, :engine
   def find_all_invoices_by_customer_id(customer_id)
     @engine.find_all_invoices_by_customer_id(customer_id)
   end
+
+  def find_successful_invoices(invoices)
+    @engine.find_successful_invoices(invoices)
+  end
+
+  def find_merchant_for_each_successful_invoice(successful_invoices)
+    good_invoices = successful_invoices.group_by{|invoice| invoice.merchant_id}
+    favorite_merchant_id = good_invoices.map{|k, v| [v.size, k]}.sort[-1][-1]
+    @engine.find_merchant_by_merchant_id(favorite_merchant_id)
+  end
 end
