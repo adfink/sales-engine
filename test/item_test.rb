@@ -41,7 +41,6 @@ class ItemTest < MiniTest::Test
   end
 
   def test_that_it_can_return_revenue_of_item
-    skip
-    assert_equal "", @item.revenue
+    assert_equal 2178103, @item.revenue
   end
 end
