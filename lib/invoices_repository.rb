@@ -10,6 +10,10 @@ class InvoicesRepository
     @invoices = generate_invoices(filepath)
   end
 
+  # def inspect
+  #   "#<#{self.class} #{invoices.size} rows>"
+  # end
+
   def inspect
     "invoice repository containing #{@invoices.count} items"
   end

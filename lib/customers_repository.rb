@@ -10,6 +10,10 @@ attr_reader :customers, :engine
     @customers = generate_customers(filepath)
   end
 
+# def inspect
+#   "#<#{self.class} #{customers.size} rows>"
+# end
+
   def inspect
     "customer repository containing #{@customers.count} items"
   end

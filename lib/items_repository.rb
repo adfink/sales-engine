@@ -10,6 +10,10 @@ class ItemsRepository
     @items = generate_items(filepath)
   end
 
+  # def inspect
+  #   "#<#{self.class} #{items.size} rows>"
+  # end
+
   def inspect
     "item repository containing #{@items.count} items"
   end

@@ -11,6 +11,10 @@ attr_reader :merchants, :engine
     @merchants = generate_merchants(filepath)
   end
 
+# def inspect
+#   "#<#{self.class} #{merchants.size} rows>"
+# end
+
   def inspect
     "merchant repository containing #{@merchants.count} items"
   end
