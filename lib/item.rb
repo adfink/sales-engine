@@ -55,4 +55,8 @@ attr_accessor :id,
   def revenue
     @repository.find_item_revenue(id)
   end
+
+  def number_of_sales
+    @repository.find_item_sales_number(id)
+  end
 end

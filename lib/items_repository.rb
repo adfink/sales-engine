@@ -86,46 +86,41 @@ class ItemsRepository
   def find_all_invoice_items_by_item_id(item_id)
     engine.find_all_invoice_items_by_item_id(item_id)
   end
-  #
-  def most_revenue(number_of_items)
-    # collect all corresponding invoice items for each item --> array of arrays
-    invoice_items = @items.map{|item| item.find_invoice_items(item.id)}
-    # calculate total cost for each invoice item for each item --> array of arrays
-    items_revenues = invoice_items.map{|invoice_items|  invoice_items.map{|invoice_item| invoice_item.total_cost}}
-    # reduce each item's revenue numbers to a single value
-    items_revenues.map! {|revenue_collection| revenue_collection.reduce(:+)||0}
-    items_revenues.sort[-number_of_items..-1]
-    # sort by revenue and take top "number_of_items"
-  end
-  #
 
   def most_revenue(number_of_items)
-    # collect all corresponding invoice items for each item --> array of arrays
-    invoice_items = @items.map{|item| [item.find_invoice_items(item.id), item.id]}
-    # # calculate total cost for each invoice item for each item --> array of arrays
-    items_revenues = invoice_items.map{|invoice_items|  invoice_items.map{|invoice_item, item_id| [invoice_item.total_cost, item_id]}}
-    # # reduce each item's revenue numbers to a single value
-    # items_revenues.map! {|revenue_collection| revenue_collection.reduce(:+)||0}
-    # items_revenues.sort[-number_of_items..-1]
-    # # sort by revenue and take top "number_of_items"
-  end
 
-  def most_revenue(number_of_items)
    revenue_for_all_items =  @items.map {|item| [item.revenue, item.id]}
-
 
    revenue_for_all_items_sorted =  revenue_for_all_items.sort
 
- top_items_id_with_revenue = revenue_for_all_items_sorted[-number_of_items..-1]
+   top_items_id_with_revenue = revenue_for_all_items_sorted[-number_of_items..-1]
+
    top_items_id_with_revenue.map {|element| find_by_id(element[1])}
 
+  end
+
+  def most_items(number_of_items)
+
+    sales_for_each_item_sorted = @items.map {|item| [item.number_of_sales, item.id]}.sort
+
+    top_items_id_with_sales_number = sales_for_each_item_sorted[-number_of_items..-1]
+
+    top_items_id_with_sales_number.map {|element| find_by_id(element[1])}
 
   end
+
 
 
   def find_item_revenue(item_id)
     @engine.find_this_items_revenue(item_id)
   end
+
+
+
+  def find_item_sales_number(item_id)
+    @engine.find_this_items_sales_number(item_id)
+  end
+
 
 
 end

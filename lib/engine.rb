@@ -157,15 +157,15 @@ class Engine
   end
 
 
+  def find_this_items_sales_number(item_id)
 
+    invoice_items = invoice_items_repository.find_all_by_item_id(item_id)
 
+    good_invoice_items = invoice_items.select{|invoice_item| invoice_item.attached_to_successful_invoice?(invoice_item.id)}
 
-#
-# def is_this_invoice_successful?(invoice_id)
-#   invoices_repository.find_by_id(invoice_id).successful?
-# end
+    good_invoice_items.map {|invoice_item| invoice_item.quantity.to_i}.reduce(:+) || 0
 
-
+  end
 
 
 

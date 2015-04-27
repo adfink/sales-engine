@@ -103,4 +103,9 @@ class ItemsRepositoryTest < MiniTest::Test
   def test_it_can_return_top_x_items_by_total_revenue
     assert_equal "", @engine.items_repository.most_revenue(10)
   end
+
+
+  def test_it_can_return_top_x_items_by_number_sold
+    assert_equal "", @engine.items_repository.most_items(10)
+  end
 end
