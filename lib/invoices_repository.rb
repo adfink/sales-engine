@@ -99,7 +99,7 @@ class InvoicesRepository
     @engine.find_merchant_by_merchant_id(merchant_id)
   end
 
-  def am_i_succesful?(id)
+  def am_i_successful?(id)
     @engine.is_this_invoice_successful?(id)
   end
 

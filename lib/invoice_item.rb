@@ -39,7 +39,7 @@ class InvoiceItem
   end
 
 
-  def attached_to_successful_invoice?(invoice_id)
-    @repository.am_i_successful?(invoice_id)
+  def attached_to_successful_invoice?(id)
+    @repository.am_i_successful?(id)
   end
 end

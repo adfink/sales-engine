@@ -111,7 +111,11 @@ class ItemsRepository
   end
 
   def most_revenue(number_of_items)
-    @items.map {|item| item.revenue}
+   revenue_for_all_items =  @items.map {|item| item.revenue}
+
+
+   revenue_for_all_items_sorted =  revenue_for_all_items.sort_by
+   revenue_for_all_items_sorted[-number_of_items..-1]
   end
 
 

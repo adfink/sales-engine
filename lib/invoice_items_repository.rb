@@ -97,7 +97,7 @@ class InvoiceItemsRepository
 
 
   def am_i_successful?(invoice_id)
-    @engine.invoices_repository.find_by_id(invoice_id).successful?
+    @engine.is_this_invoice_successful?(invoice_id)
   end
 
 
