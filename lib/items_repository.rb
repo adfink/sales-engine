@@ -111,11 +111,15 @@ class ItemsRepository
   end
 
   def most_revenue(number_of_items)
-   revenue_for_all_items =  @items.map {|item| item.revenue}
+   revenue_for_all_items =  @items.map {|item| [item.revenue, item.id]}
 
 
-   revenue_for_all_items_sorted =  revenue_for_all_items.sort_by
-   revenue_for_all_items_sorted[-number_of_items..-1]
+   revenue_for_all_items_sorted =  revenue_for_all_items.sort
+
+ top_items_id_with_revenue = revenue_for_all_items_sorted[-number_of_items..-1]
+   top_items_id_with_revenue.map {|element| find_by_id(element[1])}
+
+
   end
 
 

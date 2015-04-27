@@ -149,7 +149,10 @@ class Engine
 
    invoice_items = invoice_items_repository.find_all_by_item_id(item_id)
 
-    invoice_items.select{|invoice_item| invoice_item.attached_to_successful_invoice?(invoice_item.id)}
+    good_invoice_items = invoice_items.select{|invoice_item| invoice_item.attached_to_successful_invoice?(invoice_item.id)}
+
+   good_invoice_items.map {|invoice_item| invoice_item.total_cost}.reduce(:+) || 0
+
 
   end
 
