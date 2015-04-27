@@ -13,6 +13,7 @@ class MerchantTest < MiniTest::Test
     @merchant3 = engine.merchants_repository.find_by_id("3")
     @merchant4 = engine.merchants_repository.find_by_id("4")
     @merchant34 = engine.merchants_repository.find_by_id("34")
+    @merchant26 = engine.merchants_repository.find_by_id("26")
   end
 
   def test_that_it_returns_merchant_attributes
@@ -54,14 +55,9 @@ class MerchantTest < MiniTest::Test
     assert_equal "573424.54", @merchant34.revenue
   end
 
-#need to look into this -- for some reason the 'to_d' method is being called on nil instead of an integer
   def test_that_it_returns_revenue_with_a_date
-    skip
-    assert_equal 0, @merchant.revenue("2012-03-27 14:53:59 UTC")
-    assert_equal 0, @merchant2.revenue("2012-03-27 14:53:59 UTC")
-    assert_equal 0, @merchant3.revenue("2012-03-27 14:53:59 UTC")
-    assert_equal 0, @merchant4.revenue("2012-03-27 14:53:59 UTC")
-    assert_equal 0, @merchant34.revenue("2012-03-27 14:53:59 UTC")
+    assert_equal 2464143, @merchant.revenue("2012-03-25 13:54:11 UTC")
+    assert_equal 9163588, @merchant26.revenue("2012-03-25 09:54:09 UTC")
   end
 
   def test_that_it_can_find_its_favorite_customer
