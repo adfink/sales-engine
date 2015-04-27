@@ -50,4 +50,13 @@ attr_accessor :id,
   def find_invoice_items(id)
     @repository.find_all_invoice_items_by_item_id(id)
   end
+
+
+  def revenue
+    @repository.find_item_revenue(id)
+  end
+
+  def number_of_sales
+    @repository.find_item_sales_number(id)
+  end
 end

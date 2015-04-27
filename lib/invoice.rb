@@ -43,6 +43,6 @@ attr_accessor :id,
   end
 
   def successful?
-    @repository.am_i_succesful?(id)
+    @repository.am_i_successful?(id)
   end
 end

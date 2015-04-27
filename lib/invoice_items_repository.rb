@@ -10,6 +10,10 @@ class InvoiceItemsRepository
     @invoice_items = generate_invoice_items(filepath)
   end
 
+  # def inspect
+  #   "#<#{self.class} #{invoices_items.size} rows>"
+  # end
+
   def inspect
     "invoice item repository containing #{@invoice_items.count} items"
   end
@@ -94,6 +98,13 @@ class InvoiceItemsRepository
   def find_item_by_item_id(item_id)
     @engine.find_item_by_item_id(item_id)
   end
+
+
+  def am_i_successful?(invoice_id)
+    @engine.is_this_invoice_successful?(invoice_id)
+  end
+
+
 end
 
 

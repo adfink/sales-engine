@@ -8,7 +8,12 @@ attr_reader :transactions
   def initialize(engine, filepath)
     @engine = engine
     @transactions = generate_transactions(filepath)
+    @successful_transactions = find_all_by_result("success")
   end
+
+# def inspect
+#   "#<#{self.class} #{transactions.size} rows>"
+# end
 
   def inspect
     "transaction repository containing #{@transactions.count} items"
