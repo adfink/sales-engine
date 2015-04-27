@@ -1,3 +1,5 @@
+require './lib/transactions_repository'
+
 class Transactions
   attr_accessor :id,
                 :invoice_id,
