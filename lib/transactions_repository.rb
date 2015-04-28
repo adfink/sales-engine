@@ -87,6 +87,26 @@ attr_reader :transactions
   def find_invoice_by_invoice_id(invoice_id)
     @engine.find_invoice_by_invoice_id(invoice_id)
   end
+
+  def charge(inputs, invoice_id)
+    data = {
+      id:                 next_id,
+      invoice_id:         invoice_id,
+      credit_card_number: inputs[:credit_card_number],
+      result:             inputs[:result],
+      created_at:         Time.now.to_s,
+      updated_at:         Time.now.to_s
+    }
+
+    transaction = Transactions.new(data, self)
+
+    @transactions << transaction
+    transaction
+  end
+
+  def next_id
+    @transactions.last.id.to_i + 1
+  end
 end
 
 

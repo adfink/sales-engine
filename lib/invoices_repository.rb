@@ -107,5 +107,29 @@ class InvoicesRepository
     @engine.is_this_invoice_successful?(id)
   end
 
+  def create(inputs)
+    data = {
+      id:          next_id,
+      customer_id: inputs[:customer].id,
+      merchant_id: inputs[:merchant].id,
+      status:      inputs[:status],
+      created_at:  Time.now.to_s,
+      updated_at:  Time.now.to_s
+    }
 
+    invoice = Invoice.new(data, self)
+
+    @engine.add_items(inputs[:items], invoice.id)
+
+    @invoices << invoice
+    invoice
+  end
+
+  def next_id
+    @invoices.last.id.to_i + 1
+  end
+
+  def charge(inputs, invoice_id)
+    @engine.charge(inputs, invoice_id)
+  end
 end

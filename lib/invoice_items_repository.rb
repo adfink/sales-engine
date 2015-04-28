@@ -104,7 +104,29 @@ class InvoiceItemsRepository
     @engine.is_this_invoice_successful?(invoice_id)
   end
 
+  def add_items(items, invoice_id)
+    items_hash = items.group_by {|i| i}
+    item_and_quantity = items_hash.map{|item_object, quantity| [item_object, quantity]}
+    item_and_quantity.each do |item_and_quantity|
 
+      data = {
+        :id         => next_id,
+        :item_id    => item_and_quantity[0].id,
+        :invoice_id => invoice_id,
+        :quantity   => item_and_quantity[1],
+        :unit_price => item_and_quantity[0].unit_price,
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+
+      invoice_items << InvoiceItem.new(data, self)
+
+    end
+  end
+
+  def next_id
+    invoice_items.last.id.to_i + 1
+  end
 end
 
 
