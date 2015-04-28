@@ -45,4 +45,8 @@ attr_accessor :id,
   def successful?
     @repository.am_i_successful?(id)
   end
+
+  def charge(inputs)
+  @repository.charge(inputs, id)
+  end
 end

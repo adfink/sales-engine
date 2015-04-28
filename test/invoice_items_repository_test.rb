@@ -4,6 +4,11 @@ require './lib/invoice_items_repository.rb'
 
 class InvoiceItemsRepositoryTest < Minitest::Test
 
+  def setup
+    @engine = Engine.new("./data")
+    @engine.startup
+  end
+
   def test_that_it_exists
     invoice_items = InvoiceItemsRepository.new(nil,"./fixtures/invoice_items.csv")
     assert invoice_items
@@ -86,16 +91,28 @@ class InvoiceItemsRepositoryTest < Minitest::Test
     assert_equal 9, invoice_items_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC").map{|invoice_item| invoice_item.id}.count
   end
 
-
   def test_it_can_find_by_updated_at
     invoice_items_repo = InvoiceItemsRepository.new(nil,"./fixtures/invoice_items.csv")
     assert_equal "7", invoice_items_repo.find_by_updated_at("2012-03-27 14:54:10 UTC").id
   end
 
-
   def test_it_can_find_all_by_updated_at
     invoice_items_repo = InvoiceItemsRepository.new(nil,"./fixtures/invoice_items.csv")
     assert_equal 2, invoice_items_repo.find_all_by_updated_at("2012-03-27 14:54:10 UTC").map{|invoice_item| invoice_item.id}.count
+  end
+
+  def test_it_has_more_items_after_adding_invoice
+    InvoiceItemsRepository.new(@engine,"./data/invoice_items.csv")
+    invoice_repo = InvoicesRepository.new(@engine, "./data/invoices.csv")
+    customer = @engine.customers_repository.customers[1]
+    merchant = @engine.merchants_repository.merchants[1]
+    items = [@engine.items_repository.items[1], @engine.items_repository.items[2], @engine.items_repository.items[3]]
+    invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: items).id
+    assert_equal 21690, @engine.invoice_items_repository.invoice_items.count
+
+    more_items = [@engine.items_repository.items[25], @engine.items_repository.items[74], @engine.items_repository.items[142], @engine.items_repository.items[257]]
+    invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: more_items).id
+    assert_equal 21694, @engine.invoice_items_repository.invoice_items.count
   end
 end
 
