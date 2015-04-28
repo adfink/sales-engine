@@ -108,4 +108,26 @@ class InvoicesRepository
   end
 
 
+
+
+  def create(customer, merchant, status, items)
+    invoice = Invoice.new("", self)
+    invoice.id = @invoices.length + 1
+    invoice.customer_id = customer.id
+    invoice.merchant_id = merchant.id
+    invoice.status = status
+    invoice.created_at = Time.now
+    invoice.updated_at = Time.now
+
+    @engine.input_these_items_to_invoice_items_repo(:items, :invoice.id)
+
+    # @invoices<< invoice
+    # (customer: customer, merchant: merchant, status: "shipped",
+    #   items: [item1, item2, item3])
+  end
+
+
+
+
+
 end

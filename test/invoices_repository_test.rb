@@ -88,4 +88,17 @@ class InvoicessRepositoryTest < MiniTest::Test
     invoice_repo = InvoicesRepository.new(nil, "./fixtures/invoices.csv")
     assert_equal "1", invoice_repo.find_by_updated_at("2012-03-25 09:54:09 UTC").id
   end
+
+  def test_it_can_create_invoices_on_fly
+    engine = Engine.new("./data")
+    engine.startup
+    customer = engine.customers_repository.customers[1]
+    merchant = engine.merchants_repository.merchants[1]
+    item1 = engine.items_repository.items[1]
+    item2 = engine.items_repository.items[2]
+    item3 = engine.items_repository.items[3]
+    items = [item1, item2, item3]
+    invoice_repo = InvoicesRepository.new(nil, "./fixtures/invoices.csv")
+    assert_equal "",  invoice_repo.create(customer, merchant, "shipped", items)
+  end
 end

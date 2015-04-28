@@ -131,6 +131,11 @@ class Engine
   end
 
 
+  def input_these_items_to_invoice_items_repo(items, invoice_id)
+    @invoice_items_repository.input_these_items(items, invoice_id)
+  end
+
+
 
 end
 
