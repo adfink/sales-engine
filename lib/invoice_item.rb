@@ -1,4 +1,4 @@
-require_relative 'invoice_items_repository'
+require_relative 'invoice_item_repository'
 
 class InvoiceItem
   attr_accessor :id,
@@ -13,11 +13,12 @@ class InvoiceItem
   def initialize(row, repository)
     @row = row
     @repository = repository
-    @id         = row[:id]
-    @item_id    = row[:item_id]
-    @invoice_id = row[:invoice_id]
-    @quantity   = row[:quantity]
-    @unit_price = row[:unit_price]
+    @id         = row[:id].to_i
+    @item_id    = row[:item_id].to_i
+    @invoice_id = row[:invoice_id].to_i
+    # binding.pry if row[:quantity].class == Array
+    @quantity   = row[:quantity].to_i
+    @unit_price = row[:unit_price].to_i
     @created_at = row[:created_at]
     @updated_at = row[:updated_at]
   end
@@ -31,7 +32,7 @@ class InvoiceItem
   end
 
   def item
-    @repository.find_item_by_item_id(id)
+    @repository.find_item_by_item_id(item_id)
   end
 
   def total_cost

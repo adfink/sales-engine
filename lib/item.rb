@@ -1,4 +1,4 @@
-require './lib/items_repository'
+require_relative 'item_repository'
 
 class Item
 attr_accessor :id,
@@ -11,17 +11,21 @@ attr_accessor :id,
 
   def initialize(row, repository)
     @repository  = repository
-    @id          = row[:id]
+    @id          = row[:id].to_i
     @name        = row[:name]
     @description = row[:description]
-    @unit_price  = row[:unit_price]
-    @merchant_id = row[:merchant_id]
+    @unit_price  = row[:unit_price].to_i
+    @merchant_id = row[:merchant_id].to_i
     @created_at  = row[:created_at]
     @updated_at  = row[:updated_at]
   end
 
   def inspect
     "item number #{id}"
+  end
+
+  def merchant
+    @repository.find_merchant(merchant_id)
   end
 
   def invoice_items
@@ -41,6 +45,8 @@ attr_accessor :id,
     # find all invoices associated with each invoice item --> array
     total_invoice_items = invoice_items.map{|invoice_item| invoice_item * invoice_item.quantity}
     invoices = total_invoice_items.map{|invoice_item| invoice_item.invoice}
+    invoice_item_quantities = invoice_items.map{|invoice_item| invoice_item.quantity}
+    invoices.zip(invoice_item_quantities)
     # group by created at date --> hash {created_at date => number of times it appears}
     invoices_by_date = invoices.group_by{|invoice| invoice.created_at}
     # sort the hash based on number of invoices per date

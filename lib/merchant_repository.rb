@@ -1,9 +1,9 @@
 require 'csv'
-require './lib/merchant'
-require './lib/engine'
+require_relative 'merchant'
+require_relative 'sales_engine'
 require 'pry'
 
-class MerchantsRepository
+class MerchantRepository
 attr_reader :merchants, :engine
 
   def initialize(engine, filepath)

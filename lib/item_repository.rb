@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/item'
-require './lib/engine'
+require_relative 'item'
+require_relative 'sales_engine'
 
-class ItemsRepository
+class ItemRepository
   attr_reader :items, :engine
 
   def initialize(engine, filepath)
@@ -52,7 +52,7 @@ class ItemsRepository
   end
 
   def find_by_unit_price(price)
-    @items.find {|item| item.unit_price == price}
+    @items.find {|item| item.unit_price == (price.to_f*100).to_i}
   end
 
   def find_all_by_unit_price(price)
@@ -88,15 +88,8 @@ class ItemsRepository
   end
 
   def most_revenue(number_of_items)
-
    revenue_for_all_items =  @items.map {|item| [item.revenue, item.id]}
-
-   revenue_for_all_items_sorted =  revenue_for_all_items.sort
-
-   top_items_id_with_revenue = revenue_for_all_items_sorted[-number_of_items..-1]
-
-   top_items_id_with_revenue.map {|element| find_by_id(element[1])}
-
+   revenue_for_all_items.max_by(number_of_items) {|element| element }.map {|element| find_by_id(element[1])}
   end
 
   def most_items(number_of_items)
@@ -119,6 +112,11 @@ class ItemsRepository
 
   def find_item_sales_number(item_id)
     @engine.find_this_items_sales_number(item_id)
+  end
+
+
+  def find_merchant(merchant_id)
+    @engine.find_merchant_by_merchant_id(merchant_id)
   end
 
 

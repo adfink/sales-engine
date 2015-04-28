@@ -1,4 +1,4 @@
-require './lib/invoices_repository'
+require_relative 'invoice_repository'
 
 class Invoice
 attr_accessor :id,
@@ -10,9 +10,9 @@ attr_accessor :id,
 
   def initialize(row, repository)
     @repository  = repository
-    @id          = row[:id]
-    @customer_id = row[:customer_id]
-    @merchant_id = row[:merchant_id]
+    @id          = row[:id].to_i
+    @customer_id = row[:customer_id].to_i
+    @merchant_id = row[:merchant_id].to_i
     @status      = row[:status]
     @created_at  = row[:created_at]
     @updated_at  = row[:updated_at]
