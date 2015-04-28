@@ -82,9 +82,9 @@ class SalesEngine
 
 
   def revenue_of_merchant_by_id(merchant_id)
-    (find_all_invoices_by_merchant_id(merchant_id).select{|invoice| invoice.successful?}.map do |invoice|
+    find_all_invoices_by_merchant_id(merchant_id).select{|invoice| invoice.successful?}.map do |invoice|
         find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
-    end.inject(:+).to_d/100).round(2).to_digits.to_f
+    end.inject(:+).to_d/100
   end
 
   def is_this_invoice_successful?(invoice_id)
@@ -130,7 +130,7 @@ class SalesEngine
     invoice_items = successful_invoices_by_date.flat_map{|invoice| @invoice_item_repository.find_all_by_invoice_id(invoice.id)}
     revenues = invoice_items.map{|invoice_item| invoice_item.total_cost}
     # binding.pry
-    ((revenues.reduce(:+) || 0).to_d/100)
+    (revenues.reduce(:+) || 0).to_d/100
   end
 
   def add_items(items, invoice_id)

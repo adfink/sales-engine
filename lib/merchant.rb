@@ -33,6 +33,7 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def merchant_revenue(date)
+    date = date.to_s
     @repository.find_revenue_by_id_by_date(id, date)
   end
 
