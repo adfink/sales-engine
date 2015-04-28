@@ -1,8 +1,14 @@
 require 'minitest/pride'
 require 'minitest/autorun'
 require './lib/invoices_repository'
+require 'pry'
 
-class InvoicessRepositoryTest < MiniTest::Test
+class InvoicesRepositoryTest < MiniTest::Test
+
+  def setup
+    @engine = Engine.new("./data")
+    @engine.startup
+  end
 
   def test_that_it_exists
     invoice_repo = InvoicesRepository.new(nil, "./fixtures/invoices.csv")
@@ -89,16 +95,20 @@ class InvoicessRepositoryTest < MiniTest::Test
     assert_equal "1", invoice_repo.find_by_updated_at("2012-03-25 09:54:09 UTC").id
   end
 
-  def test_it_can_create_invoices_on_fly
-    engine = Engine.new("./data")
-    engine.startup
-    customer = engine.customers_repository.customers[1]
-    merchant = engine.merchants_repository.merchants[1]
-    item1 = engine.items_repository.items[1]
-    item2 = engine.items_repository.items[2]
-    item3 = engine.items_repository.items[3]
-    items = [item1, item2, item3]
-    invoice_repo = InvoicesRepository.new(nil, "./fixtures/invoices.csv")
-    assert_equal "",  invoice_repo.create(customer, merchant, "shipped", items)
+
+  def test_it_can_find_the_next_row_of_the_repository
+    invoice_repo = InvoicesRepository.new(nil, "./data/invoices.csv")
+    assert_equal 4844, invoice_repo.next_id
+  end
+
+  def test_it_can_add_new_invoices
+    invoice_repo = InvoicesRepository.new(@engine, "./data/invoices.csv")
+    customer = @engine.customers_repository.customers[1]
+    merchant = @engine.merchants_repository.merchants[1]
+    items = [@engine.items_repository.items[1], @engine.items_repository.items[2], @engine.items_repository.items[3]]
+    assert_equal 4844, invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: items).id
+
+    more_items = [@engine.items_repository.items[25], @engine.items_repository.items[74], @engine.items_repository.items[142], @engine.items_repository.items[257]]
+    assert_equal 4845, invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: more_items).id
   end
 end

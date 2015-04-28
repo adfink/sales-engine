@@ -130,13 +130,14 @@ class Engine
     revenues.reduce(:+) || 0
   end
 
-
-  def input_these_items_to_invoice_items_repo(items, invoice_id)
-    @invoice_items_repository.input_these_items(items, invoice_id)
+  def add_items(items, invoice_id)
+    invoice_items_repository.add_items(items, invoice_id)
   end
 
 
-
+  def charge(inputs, invoice_id)
+    transactions_repository.charge(inputs, invoice_id)
+  end
 end
 
 

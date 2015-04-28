@@ -104,36 +104,30 @@ class InvoiceItemsRepository
     @engine.is_this_invoice_successful?(invoice_id)
   end
 
-  def add_items(items, invoice
-  end
 
-  def input_these_items(items, invoice_id)
+  def add_items(items, invoice_id)
     items_hash = items.group_by {|i| i}
-    item_and_item_quantity_nested_array = items_hash.map { |item_object ,quantity| [item_object, quantity] }
-    item_and_item_quantity_nested_array.map do |i_and_q|
+    item_and_quantity = items_hash.map{|item_object, quantity| [item_object, quantity]}
+    item_and_quantity.each do |item_and_quantity|
 
       data = {
-
-      id => next_item,
-      repository => self,
-      invoice_id => invoice_id,
-      unit_price => i_and_q[0].unit_price,
-      item_id => i_and_q[0].id,
-      quantity =>  i_and_q[1],
-      created_at => Time.now,
-      updated_at => Time.now
-
+        :id         => next_id,
+        :item_id    => item_and_quantity[0].id,
+        :invoice_id => invoice_id,
+        :quantity   => item_and_quantity[1],
+        :unit_price => item_and_quantity[0].unit_price,
+        :created_at => Time.now,
+        :updated_at => Time.now
       }
 
-      new_invoice_item = InvoiceItem.new(data, repository)
-      @invoice_items<< new_invoice_item
+      invoice_items << InvoiceItem.new(data, self)
+
     end
   end
 
-  def next_item
+  def next_id
     invoice_items.last.id.to_i + 1
   end
-
 end
 
 

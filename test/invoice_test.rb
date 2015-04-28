@@ -56,4 +56,18 @@ class InvoiceTest < MiniTest::Test
     assert_equal true, @invoice2.successful?
     assert_equal false, @invoice3.successful?
   end
+
+  def test_you_can_create_a_transaction
+    @engine = Engine.new("./data")
+    @engine.startup
+
+    invoice_repo = InvoicesRepository.new(@engine, "./data/invoices.csv")
+    customer = @engine.customers_repository.customers[1]
+    merchant = @engine.merchants_repository.merchants[1]
+    items = [@engine.items_repository.items[1], @engine.items_repository.items[2], @engine.items_repository.items[3]]
+    invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: items)
+
+    invoice = @engine.invoices_repository.invoices[-1]
+    assert_equal 5596, invoice.charge(credit_card_number: "4444333322221111", credit_card_expiration: "10/13", result:"success").id
+  end
 end
