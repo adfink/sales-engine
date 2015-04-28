@@ -84,7 +84,7 @@ class SalesEngine
   def revenue_of_merchant_by_id(merchant_id)
     (find_all_invoices_by_merchant_id(merchant_id).select{|invoice| invoice.successful?}.map do |invoice|
         find_all_invoice_items_by_invoice_id(invoice.id).map(&:total_cost).inject(:+) || 0
-    end.inject(:+).to_d/100).round(2).to_digits
+    end.inject(:+).to_d/100).round(2).to_digits.to_f
   end
 
   def is_this_invoice_successful?(invoice_id)
@@ -105,7 +105,7 @@ class SalesEngine
    invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
 
     good_invoice_items = invoice_items.select{|invoice_item|
-      invoice_item.attached_to_successful_invoice?(invoice_item.invoice_id)
+      invoice_item.attached_to_successful_invoice?
     }
 
     good_invoice_items.map {|invoice_item| invoice_item.total_cost}.reduce(:+) || 0
@@ -118,7 +118,7 @@ class SalesEngine
 
     invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
 
-    good_invoice_items = invoice_items.select{|invoice_item| invoice_item.attached_to_successful_invoice?(invoice_item.id)}
+    good_invoice_items = invoice_items.select{|invoice_item| invoice_item.attached_to_successful_invoice?}
 
     good_invoice_items.map {|invoice_item| invoice_item.quantity.to_i}.reduce(:+) || 0
 
@@ -129,7 +129,8 @@ class SalesEngine
     successful_invoices_by_date = find_successful_invoices_by_merchant_id(merchant_id).find_all{|invoice| invoice.created_at.to_s[0..9] == date[0..9]}
     invoice_items = successful_invoices_by_date.flat_map{|invoice| @invoice_item_repository.find_all_by_invoice_id(invoice.id)}
     revenues = invoice_items.map{|invoice_item| invoice_item.total_cost}
-    revenues.reduce(:+) || 0
+    # binding.pry
+    ((revenues.reduce(:+) || 0).to_d/100)
   end
 
   def add_items(items, invoice_id)
