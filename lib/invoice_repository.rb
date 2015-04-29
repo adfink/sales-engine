@@ -10,10 +10,6 @@ class InvoiceRepository
     @invoices = generate_invoices(filepath)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{invoices.size} rows>"
-  # end
-
   def inspect
     "invoice repository containing #{@invoices.count} items"
   end
@@ -103,8 +99,8 @@ class InvoiceRepository
     @engine.find_merchant_by_merchant_id(merchant_id)
   end
 
-  def am_i_successful?(id)
-    @engine.is_this_invoice_successful?(id)
+  def am_i_successful?(invoice_id)
+    @engine.is_this_invoice_successful?(invoice_id)
   end
 
   def create(inputs)
@@ -132,5 +128,4 @@ class InvoiceRepository
   def charge(inputs, invoice_id)
     @engine.charge(inputs, invoice_id)
   end
-
 end

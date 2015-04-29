@@ -101,7 +101,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 2, invoice_items_repo.find_all_by_updated_at("2012-03-27 14:54:10 UTC").map{|invoice_item| invoice_item.id}.count
   end
 
-  def test_it_has_more_items_after_adding_invoice
+  def test_it_has_more_items_after_creating_new_invoice
     InvoiceItemRepository.new(@engine,"./data/invoice_items.csv")
     invoice_repo = InvoiceRepository.new(@engine, "./data/invoices.csv")
     customer = @engine.customer_repository.customers[1]
@@ -113,6 +113,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
     more_items = [@engine.item_repository.items[25], @engine.item_repository.items[74], @engine.item_repository.items[142], @engine.item_repository.items[257]]
     invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: more_items).id
     assert_equal 21694, @engine.invoice_item_repository.invoice_items.count
+  end
+
+  def test_it_can_get_next_id
+    invoice_items = InvoiceItemRepository.new(nil,"./fixtures/invoice_items.csv")
+    assert_equal 12,  invoice_items.next_id
   end
 end
 
