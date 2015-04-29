@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/invoice_item'
-require './lib/engine'
+require_relative 'invoice_item'
+require_relative 'sales_engine'
 
-class InvoiceItemsRepository
+class InvoiceItemRepository
   attr_reader :invoice_items
 
   def initialize(engine, filepath)
@@ -104,8 +104,17 @@ class InvoiceItemsRepository
     @engine.is_this_invoice_successful?(invoice_id)
   end
 
+
   def add_items(items, invoice_id)
-    items_hash = items.group_by {|i| i}
+
+    items_hash = items.inject({}) do |hash, item|
+      if hash[item]
+        hash[item] += 1
+      else
+        hash[item] = 1
+      end
+      hash
+    end
     item_and_quantity = items_hash.map{|item_object, quantity| [item_object, quantity]}
     item_and_quantity.each do |item_and_quantity|
 

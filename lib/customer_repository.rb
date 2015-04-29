@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/customer'
-require './lib/engine'
+require_relative 'customer'
+require_relative 'sales_engine'
 
-class CustomersRepository
+class CustomerRepository
 attr_reader :customers, :engine
 
   def initialize(engine, filepath)

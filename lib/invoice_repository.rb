@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/invoice'
-require './lib/engine'
+require_relative 'invoice'
+require_relative 'sales_engine'
 
-class InvoicesRepository
+class InvoiceRepository
   attr_reader :invoices
 
   def initialize(engine, filepath)
@@ -117,8 +117,8 @@ class InvoicesRepository
       updated_at:  Time.now.to_s
     }
 
-    invoice = Invoice.new(data, self)
 
+    invoice = Invoice.new(data, self)
     @engine.add_items(inputs[:items], invoice.id)
 
     @invoices << invoice
@@ -132,4 +132,5 @@ class InvoicesRepository
   def charge(inputs, invoice_id)
     @engine.charge(inputs, invoice_id)
   end
+
 end

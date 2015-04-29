@@ -1,4 +1,4 @@
-require './lib/customers_repository'
+require_relative 'customer_repository'
 
 class Customer
 attr_accessor :id,
@@ -9,7 +9,7 @@ attr_accessor :id,
 
   def initialize(row, repository)
     @repository = repository
-    @id         = row[:id]
+    @id         = row[:id].to_i
     @first_name = row[:first_name]
     @last_name  = row[:last_name]
     @created_at = row[:created_at]

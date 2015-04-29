@@ -1,9 +1,10 @@
 require 'csv'
-require './lib/merchant'
-require './lib/engine'
+require_relative 'merchant'
+require_relative 'sales_engine'
 require 'pry'
+require 'date'
 
-class MerchantsRepository
+class MerchantRepository
 attr_reader :merchants, :engine
 
   def initialize(engine, filepath)
@@ -95,19 +96,19 @@ attr_reader :merchants, :engine
   end
 
   def find_customer_by_customer_id(customer_id)
-    @engine.customers_repository.find_by_id(customer_id)
+    @engine.customer_repository.find_by_id(customer_id)
   end
 
   def most_revenue(number_of_merchants)
     merchants_revenue = merchants.map{|merchant| [merchant.revenue, merchant.id]}
-    sorted_merchants = merchants_revenue.sort
-    sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
+    sorted_merchants = merchants_revenue.sort.reverse.first(number_of_merchants)
+    sorted_merchants.map{|element| find_by_id(element[1])}
   end
 
   def most_items(number_of_merchants)
-    merchants_items = merchants.map{|merchant| [merchant.items.map{|item| item.id}, merchant.id]}
-    sorted_merchants = merchants_items.sort
-    sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
+    items = merchants.map{|merchant| [merchant.items_sold, merchant.id, merchant]}
+    sorted_most_items = items.sort.reverse.first(number_of_merchants)
+    sorted_most_items.map{|array| array[2]}
   end
 
   def find_all_items_by_merchant_id(id)
@@ -117,6 +118,8 @@ attr_reader :merchants, :engine
 # for some reason the revenue method is returning nil just before .to_d in engine class--everything else appears to be working.
 # We suspect that this is happening because some merchants sold nothing on this date and thus have "nil" revenue.
   def revenue(date)
+    # date = Date.parse(date)
+    date = date.to_s
     merchants.reduce(0){|sum, merchant| sum + merchant.revenue(date)}
   end
 end

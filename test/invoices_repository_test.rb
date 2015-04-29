@@ -95,6 +95,7 @@ class InvoicesRepositoryTest < MiniTest::Test
     assert_equal "1", invoice_repo.find_by_updated_at("2012-03-25 09:54:09 UTC").id
   end
 
+
   def test_it_can_find_the_next_row_of_the_repository
     invoice_repo = InvoicesRepository.new(nil, "./data/invoices.csv")
     assert_equal 4844, invoice_repo.next_id

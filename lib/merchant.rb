@@ -1,11 +1,12 @@
-require_relative 'merchants_repository'
+require_relative 'merchant_repository'
 require 'pry'
+
 class Merchant
 attr_accessor :id, :name, :created_at, :updated_at
 
   def initialize(row, repository)
     @repository = repository
-    @id         = row[:id]
+    @id         = row[:id].to_i
     @name       = row[:name]
     @created_at = row[:created_at]
     @updated_at = row[:updated_at]
@@ -17,6 +18,10 @@ attr_accessor :id, :name, :created_at, :updated_at
 
   def items
     @repository.find_all_items_by_merchant_id(id)
+  end
+
+  def items_sold
+    items.map{|item| item.total_sold}.reduce(:+)
   end
 
   def invoices
@@ -32,6 +37,7 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def merchant_revenue(date)
+    date = date.to_s
     @repository.find_revenue_by_id_by_date(id, date)
   end
 
