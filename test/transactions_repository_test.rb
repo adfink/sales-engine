@@ -96,5 +96,7 @@ class TransactionRepositoryTest < Minitest::Test
     transactions_repo = TransactionRepository.new(nil, "./fixtures/transactions.csv")
     assert_equal 2  , transactions_repo.find_all_by_result("failed").map{|transaction| transaction.id}.count
   end
+
+
 end
 

@@ -44,4 +44,10 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal 2487.92, (@invoice_item2.total_cost.to_d/100)
     assert_equal 2911.14, (@invoice_item3.total_cost.to_d/100)
   end
+
+  def test_that_it_can_verify_that_it_is_attached_to_successful_invoice
+    assert_equal true, @invoice_item.attached_to_successful_invoice?
+    assert_equal true, @invoice_item2.attached_to_successful_invoice?
+    assert_equal true, @invoice_item3.attached_to_successful_invoice?
+  end
 end

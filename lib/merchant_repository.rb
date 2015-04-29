@@ -12,10 +12,6 @@ attr_reader :merchants, :engine
     @merchants = generate_merchants(filepath)
   end
 
-# def inspect
-#   "#<#{self.class} #{merchants.size} rows>"
-# end
-
   def inspect
     "merchant repository containing #{@merchants.count} items"
   end
@@ -89,7 +85,7 @@ attr_reader :merchants, :engine
     @engine.find_successful_invoices(invoices)
   end
 
-  def find_customer_for_each_successful_invoice(successful_invoices)
+  def favorite_customer(successful_invoices)
     good_invoices = successful_invoices.group_by{|invoice| invoice.customer_id}
     best_customer_id = good_invoices.map{|k, v| [v.size, k]}.sort[-1][-1]
     @engine.find_customer_by_customer_id(best_customer_id)
