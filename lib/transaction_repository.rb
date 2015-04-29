@@ -57,7 +57,9 @@ attr_reader :transactions
   end
 
   def find_all_by_credit_card_number(number)
-    @transactions.find_all {|transaction| transaction.credit_card_number == number}
+    @transactions.find_all {|transaction|
+      transaction.credit_card_number == number
+    }
   end
 
   def find_by_created_at(time)
