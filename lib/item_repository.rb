@@ -48,7 +48,11 @@ class ItemRepository
   end
 
   def find_by_unit_price(price)
-    price.class == BigDecimal ? real_price = (price.to_f*100).to_i : real_price = price
+    if price.class == BigDecimal
+      real_price = (price.to_f*100).to_i
+    else
+      real_price = price
+    end
     @items.find {|item| item.unit_price == real_price}
   end
 
@@ -85,17 +89,23 @@ class ItemRepository
   end
 
   def most_revenue(number_of_items)
-   revenue_for_all_items =  @items.map {|item| [item.revenue, item.id]}
-   revenue_for_all_items.max_by(number_of_items) {|element| element }.map {|element| find_by_id(element[1])}
+   revenue_for_all_items =  @items.map {|item|
+     [item.revenue, item.id]
+   }
+   revenue_for_all_items.max_by(number_of_items) {|element|
+     element
+   }.map {|element|
+     find_by_id(element[1])
+   }
   end
 
   def most_items(number_of_items)
-
-    sales_for_each_item_sorted = @items.map {|item| [item.number_of_sales, item.id]}.sort.last(number_of_items).reverse
-
-    sales_for_each_item_sorted.map {|element| find_by_id(element[1])}
-
-
+    sales_for_each_item_sorted = @items.map {|item|
+      [item.number_of_sales, item.id]
+    }.sort.last(number_of_items).reverse
+    sales_for_each_item_sorted.map {|element|
+      find_by_id(element[1])
+    }
   end
 
 
