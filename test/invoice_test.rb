@@ -5,17 +5,17 @@ require './lib/invoice'
 class InvoiceTest < MiniTest::Test
 
   def setup
-    engine = Engine.new("./data")
+    engine = SalesEngine.new("./data")
     engine.startup
-    @invoice = engine.invoices_repository.find_by_id("1")
-    @invoice2 = engine.invoices_repository.find_by_id("12")
-    @invoice3 = engine.invoices_repository.find_by_id("13")
+    @invoice = engine.invoice_repository.find_by_id(1)
+    @invoice2 = engine.invoice_repository.find_by_id(12)
+    @invoice3 = engine.invoice_repository.find_by_id(13)
   end
 
   def test_it_can_return_its_attributes
-    assert_equal "1", @invoice.id
-    assert_equal "1", @invoice.customer_id
-    assert_equal "26", @invoice.merchant_id
+    assert_equal 1, @invoice.id
+    assert_equal 1, @invoice.customer_id
+    assert_equal 26, @invoice.merchant_id
     assert_equal "shipped", @invoice.status
     assert_equal "2012-03-25 09:54:09 UTC", @invoice.created_at
     assert_equal "2012-03-25 09:54:09 UTC", @invoice.updated_at
@@ -58,16 +58,16 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_you_can_create_a_transaction
-    @engine = Engine.new("./data")
+    @engine = SalesEngine.new("./data")
     @engine.startup
 
-    invoice_repo = InvoicesRepository.new(@engine, "./data/invoices.csv")
-    customer = @engine.customers_repository.customers[1]
-    merchant = @engine.merchants_repository.merchants[1]
-    items = [@engine.items_repository.items[1], @engine.items_repository.items[2], @engine.items_repository.items[3]]
+    invoice_repo = InvoiceRepository.new(@engine, "./data/invoices.csv")
+    customer = @engine.customer_repository.customers[1]
+    merchant = @engine.merchant_repository.merchants[1]
+    items = [@engine.item_repository.items[1], @engine.item_repository.items[2], @engine.item_repository.items[3]]
     invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: items)
 
-    invoice = @engine.invoices_repository.invoices[-1]
+    invoice = @engine.invoice_repository.invoices[-1]
     assert_equal 5596, invoice.charge(credit_card_number: "4444333322221111", credit_card_expiration: "10/13", result:"success").id
   end
 end
