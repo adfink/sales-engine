@@ -10,10 +10,6 @@ class ItemRepository
     @items = generate_items(filepath)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{items.size} rows>"
-  # end
-
   def inspect
     "item repository containing #{@items.count} items"
   end
@@ -52,8 +48,8 @@ class ItemRepository
   end
 
   def find_by_unit_price(price)
-    price.class == BigDecimal ? price = (price.to_f*100).to_i : price = price
-    @items.find {|item| item.unit_price == price}
+    price.class == BigDecimal ? real_price = (price.to_f*100).to_i : real_price = price
+    @items.find {|item| item.unit_price == real_price}
   end
 
   def find_all_by_unit_price(price)
