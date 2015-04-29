@@ -21,7 +21,7 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def items_sold
-    items.map{|item| item.total_sold}.reduce(:+)
+    items.map{|item| item.number_of_sales}.reduce(:+)
   end
 
   def invoices
@@ -42,7 +42,7 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def favorite_customer
-   @repository.find_customer_for_each_successful_invoice(successful_invoices)
+   @repository.favorite_customer(successful_invoices)
   end
 
   def successful_invoices

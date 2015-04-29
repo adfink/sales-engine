@@ -10,17 +10,13 @@ class InvoiceItemRepository
     @invoice_items = generate_invoice_items(filepath)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{invoices_items.size} rows>"
-  # end
-
   def inspect
     "invoice item repository containing #{@invoice_items.count} items"
   end
 
   def generate_invoice_items(filepath)
-  file_contents = CSV.open filepath, headers: true, header_converters: :symbol
-  file_contents.map{|row| InvoiceItem.new(row, self)}
+    file_contents = CSV.open filepath, headers: true, header_converters: :symbol
+    file_contents.map{|row| InvoiceItem.new(row, self)}
   end
 
   def check_for_file

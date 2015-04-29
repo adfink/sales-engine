@@ -147,4 +147,8 @@ class SalesEngine
   def charge(inputs, invoice_id)
     transaction_repository.charge(inputs, invoice_id)
   end
+
+  def find_merchant_for_each_successful_invoice(successful_invoices)
+    @invoice_repository.find_merchant_for_each_successful_invoice(successful_invoices)
+  end
 end

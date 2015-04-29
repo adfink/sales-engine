@@ -47,4 +47,11 @@ class ItemTest < MiniTest::Test
     assert_equal 5366080, @item2.revenue
     assert_equal 2939391, @item3.revenue
   end
+
+  def test_it_can_return_number_of_sales_for_item
+    assert_equal 109, @item.number_of_sales
+    assert_equal 80, @item2.number_of_sales
+    assert_equal 91, @item3.number_of_sales
+  end
+
 end

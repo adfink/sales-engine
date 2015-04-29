@@ -33,6 +33,6 @@ attr_accessor :id,
   end
 
   def favorite_merchant
-    @repository.find_merchant_for_each_successful_invoice(successful_invoices)
+    @repository.find_favorite_merchant(successful_invoices)
   end
 end

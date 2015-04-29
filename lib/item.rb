@@ -33,13 +33,6 @@ attr_accessor :id,
     @repository.find_all_invoice_items_by_item_id(id)
   end
 
-  def total_sold
-    @repository.find_all_invoice_items_by_item_id(id)
-      .select{|invoice_item| invoice_item.attached_to_successful_invoice?}
-      .map{|invoice_item| invoice_item.quantity}
-      .reduce(:+) || 0
-  end
-
   def best_day
     invoices = invoice_items.map{|invoice_item| invoice_item.invoice}
     invoices_by_date = invoices.group_by{|invoice| invoice.created_at}

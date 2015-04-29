@@ -110,4 +110,5 @@ class InvoiceRepositoryTest < MiniTest::Test
     more_items = [@engine.item_repository.items[25], @engine.item_repository.items[74], @engine.item_repository.items[142], @engine.item_repository.items[257]]
     assert_equal 4845, invoice_repo.create(customer: customer, merchant: merchant, status: "shipped", items: more_items).id
   end
+
 end
