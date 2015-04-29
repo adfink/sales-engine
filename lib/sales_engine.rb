@@ -22,12 +22,18 @@ class SalesEngine
   end
 
   def startup
-    @merchant_repository     = MerchantRepository.new(self, "#{@dir}/merchants.csv")
-    @invoice_repository      = InvoiceRepository.new(self, "#{@dir}/invoices.csv")
-    @item_repository         = ItemRepository.new(self, "#{@dir}/items.csv")
-    @invoice_item_repository = InvoiceItemRepository.new(self, "#{@dir}/invoice_items.csv")
-    @customer_repository     = CustomerRepository.new(self, "#{@dir}/customers.csv")
-    @transaction_repository  = TransactionRepository.new(self, "#{@dir}/transactions.csv")
+    @merchant_repository     = MerchantRepository
+       .new(self, "#{@dir}/merchants.csv")
+    @invoice_repository      = InvoiceRepository
+       .new(self, "#{@dir}/invoices.csv")
+    @item_repository         = ItemRepository
+       .new(self, "#{@dir}/items.csv")
+    @invoice_item_repository = InvoiceItemRepository
+       .new(self, "#{@dir}/invoice_items.csv")
+    @customer_repository     = CustomerRepository
+       .new(self, "#{@dir}/customers.csv")
+    @transaction_repository  = TransactionRepository
+       .new(self, "#{@dir}/transactions.csv")
   end
 
   def find_all_items_by_merchant_id(merchant_id)
@@ -149,6 +155,7 @@ class SalesEngine
   end
 
   def find_merchant_for_each_successful_invoice(successful_invoices)
-    @invoice_repository.find_merchant_for_each_successful_invoice(successful_invoices)
+    @invoice_repository
+      .find_merchant_for_each_successful_invoice(successful_invoices)
   end
 end
