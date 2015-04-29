@@ -31,9 +31,9 @@ class InvoiceItemTest < MiniTest::Test
   end
 
   def test_it_can_return_its_item
-    assert_equal 539, @invoice_item.item_id
-    assert_equal 1845, @invoice_item2.item_id
-    assert_equal 928, @invoice_item3.item_id
+    assert_equal 539, @invoice_item.item.id
+    assert_equal 1845, @invoice_item2.item.id
+    assert_equal 928, @invoice_item3.item.id
   end
 
   def test_it_can_return_its_total_cost
