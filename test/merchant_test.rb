@@ -68,7 +68,7 @@ class MerchantTest < MiniTest::Test
     assert_equal 968, @merchant34.favorite_customer.id
   end
 
-  def test_that_it_returns_customers_with_unsuccessful_invoices
+  def test_that_it_returns_customers_with_pending_invoices
     assert_equal 3, @merchant.customers_with_pending_invoices.size
     assert_equal 197, @merchant.customers_with_pending_invoices[0].id
     assert_equal 2, @merchant34.customers_with_pending_invoices.size

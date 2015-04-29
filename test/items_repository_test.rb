@@ -59,9 +59,7 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_find_all_by_unit_price
-    skip
     items_repo = ItemRepository.new(nil, "./fixtures/items.csv")
-    assert_equal [1, 9], items_repo.find_all_by_unit_price(BigDecimal.new "751.07").map{|item| item.id}
     assert_equal [1, 9], items_repo.find_all_by_unit_price(75107).map{|item| item.id}
   end
 
@@ -103,10 +101,14 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_return_top_x_items_by_total_revenue
-    assert_equal 10, @engine.item_repository.most_revenue(10).size
+    items_repo = ItemRepository.new(@engine, "./fixtures/items.csv")
+    assert_equal 10, items_repo.most_revenue(10).size
+    assert_equal [114839374, 69508656, 51719144, 43558011, 34407660, 32769030, 32018859, 31145032, 31009134, 27109889], @engine.item_repository.most_revenue(10).map{|item|item.revenue}
   end
 
   def test_it_can_return_top_x_items_by_number_sold
-    assert_equal 10, @engine.item_repository.most_items(10).size
+    items_repo = ItemRepository.new(@engine, "./fixtures/items.csv")
+    assert_equal 10, items_repo.most_items(10).size
+    assert_equal [1346, 882, 771, 608, 604, 580, 577, 570, 548, 537], @engine.item_repository.most_items(10).map{|item|item.number_of_sales}
   end
 end
