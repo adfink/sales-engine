@@ -100,13 +100,17 @@ attr_reader :merchants, :engine
   end
 
   def most_revenue(number_of_merchants)
-    merchants_revenue = merchants.map{|merchant| [merchant.revenue, merchant.id]}
+    merchants_revenue = merchants.map{|merchant|
+      [merchant.revenue, merchant.id]
+    }
     sorted_merchants = merchants_revenue.sort.reverse.first(number_of_merchants)
     sorted_merchants.map{|element| find_by_id(element[1])}
   end
 
   def most_items(number_of_merchants)
-    items = merchants.map{|merchant| [merchant.items_sold, merchant.id, merchant]}
+    items = merchants.map{|merchant|
+      [merchant.items_sold, merchant.id, merchant]
+    }
     sorted_most_items = items.sort.reverse.first(number_of_merchants)
     sorted_most_items.map{|array| array[2]}
   end
@@ -115,11 +119,10 @@ attr_reader :merchants, :engine
     @engine.find_all_items_by_merchant_id(id)
   end
 
-# for some reason the revenue method is returning nil just before .to_d in engine class--everything else appears to be working.
-# We suspect that this is happening because some merchants sold nothing on this date and thus have "nil" revenue.
   def revenue(date)
-    # date = Date.parse(date)
     date = date.to_s
-    merchants.reduce(0){|sum, merchant| sum + merchant.revenue(date)}
+    merchants.reduce(0){|sum, merchant|
+      sum + merchant.revenue(date)
+    }
   end
 end
