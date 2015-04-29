@@ -52,7 +52,8 @@ class ItemRepository
   end
 
   def find_by_unit_price(price)
-    @items.find {|item| item.unit_price == (price.to_f*100).to_i}
+    price.class == BigDecimal ? price = (price.to_f*100).to_i : price = price
+    @items.find {|item| item.unit_price == price}
   end
 
   def find_all_by_unit_price(price)
