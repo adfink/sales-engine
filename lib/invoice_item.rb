@@ -16,7 +16,6 @@ class InvoiceItem
     @id         = row[:id].to_i
     @item_id    = row[:item_id].to_i
     @invoice_id = row[:invoice_id].to_i
-    # binding.pry if row[:quantity].class == Array
     @quantity   = row[:quantity].to_i
     @unit_price = row[:unit_price].to_i
     @created_at = row[:created_at]

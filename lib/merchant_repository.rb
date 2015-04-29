@@ -106,9 +106,9 @@ attr_reader :merchants, :engine
   end
 
   def most_items(number_of_merchants)
-    merchants_items = merchants.map{|merchant| [merchant.items.map{|item| item.id}, merchant.id]}
-    sorted_merchants = merchants_items.sort
-    sorted_merchants[-number_of_merchants..-1].map{|element| find_by_id(element[1])}
+    items = merchants.map{|merchant| [merchant.items_sold, merchant.id, merchant]}
+    sorted_most_items = items.sort.reverse.first(number_of_merchants)
+    sorted_most_items.map{|array| array[2]}
   end
 
   def find_all_items_by_merchant_id(id)

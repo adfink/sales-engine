@@ -20,6 +20,10 @@ attr_accessor :id, :name, :created_at, :updated_at
     @repository.find_all_items_by_merchant_id(id)
   end
 
+  def items_sold
+    items.map{|item| item.total_sold}.reduce(:+)
+  end
+
   def invoices
     @repository.find_all_invoices_by_merchant_id(id)
   end

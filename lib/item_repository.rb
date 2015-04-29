@@ -94,11 +94,10 @@ class ItemRepository
 
   def most_items(number_of_items)
 
-    sales_for_each_item_sorted = @items.map {|item| [item.number_of_sales, item.id]}.sort
+    sales_for_each_item_sorted = @items.map {|item| [item.number_of_sales, item.id]}.sort.last(number_of_items).reverse
 
-    top_items_id_with_sales_number = sales_for_each_item_sorted[-number_of_items..-1]
+    sales_for_each_item_sorted.map {|element| find_by_id(element[1])}
 
-    top_items_id_with_sales_number.map {|element| find_by_id(element[1])}
 
   end
 
