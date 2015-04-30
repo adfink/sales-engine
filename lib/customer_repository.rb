@@ -80,12 +80,12 @@ attr_reader :customers, :engine
   end
 
   def find_favorite_merchant(successful_invoices)
-    invoices_by_merchant = successful_invoices.group_by{|invoice|
+    invoices_by_merchant = successful_invoices.group_by do |invoice|
       invoice.merchant_id
-    }
-    favorite_merchant_id = invoices_by_merchant.map{|k, v|
+    end
+    favorite_merchant_id = invoices_by_merchant.map do |k, v|
       [v.size, k]
-    }.sort[-1][-1]
+    end.sort[-1][-1]
     @engine.find_merchant_by_merchant_id(favorite_merchant_id)
   end
 

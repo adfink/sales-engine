@@ -89,43 +89,35 @@ class ItemRepository
   end
 
   def most_revenue(number_of_items)
-   revenue_for_all_items =  @items.map {|item|
+   revenue_for_all_items =  @items.map do |item|
      [item.revenue, item.id]
-   }
-   revenue_for_all_items.max_by(number_of_items) {|element|
+   end
+   revenue_for_all_items.max_by(number_of_items) do |element|
      element
-   }.map {|element|
+   end.map do |element|
      find_by_id(element[1])
-   }
+   end
   end
 
   def most_items(number_of_items)
-    sales_for_each_item_sorted = @items.map {|item|
+    sales_for_each_item_sorted = @items.map do |item|
       [item.number_of_sales, item.id]
-    }.sort.last(number_of_items).reverse
-    sales_for_each_item_sorted.map {|element|
+    end.sort.last(number_of_items).reverse
+    sales_for_each_item_sorted.map do |element|
       find_by_id(element[1])
-    }
+    end
   end
-
-
 
   def find_item_revenue(item_id)
     @engine.find_this_items_revenue(item_id)
   end
 
-
-
   def find_item_sales_number(item_id)
     @engine.find_this_items_sales_number(item_id)
   end
 
-
   def find_merchant(merchant_id)
     @engine.find_merchant_by_merchant_id(merchant_id)
   end
-
-
-
 end
 

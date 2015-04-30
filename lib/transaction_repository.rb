@@ -37,69 +37,69 @@ attr_reader :transactions
   end
 
   def find_by_id(number)
-    @transactions.find {|transaction|
+    @transactions.find do |transaction|
       transaction.id == number
-    }
+    end
   end
 
   def find_by_invoice_id(number)
-    @transactions.find {|transaction|
+    @transactions.find do |transaction|
       transaction.invoice_id == number
-    }
+    end
   end
 
   def find_all_by_invoice_id(number)
-    @transactions.find_all {|transaction|
+    @transactions.find_all do |transaction|
       transaction.invoice_id == number
-    }
+    end
   end
 
   def find_by_credit_card_number(number)
-    @transactions.find {|transaction|
+    @transactions.find do |transaction|
       transaction.credit_card_number == number
-    }
+    end
   end
 
   def find_all_by_credit_card_number(number)
-    @transactions.find_all {|transaction|
+    @transactions.find_all do |transaction|
       transaction.credit_card_number == number
-    }
+    end
   end
 
   def find_by_created_at(time)
-    @transactions.find {|transaction|
+    @transactions.find do |transaction|
       transaction.created_at.to_s == time
-    }
+    end
   end
 
   def find_all_by_created_at(time)
-    @transactions.find_all {|transaction|
+    @transactions.find_all do |transaction|
       transaction.created_at.to_s == time
-    }
+    end
   end
 
   def find_by_updated_at(time)
-    @transactions.find {|transaction|
+    @transactions.find do |transaction|
       transaction.updated_at.to_s == time
-    }
+    end
   end
 
   def find_all_by_updated_at(time)
-    @transactions.find_all {|transaction|
+    @transactions.find_all do |transaction|
       transaction.updated_at.to_s == time
-    }
+    end
   end
 
   def find_by_result(result)
-    @transactions.find {|transaction|
+    @transactions.find do |transaction|
       transaction.result.to_s == result
-    }
+    end
   end
 
   def find_all_by_result(result)
-    @transactions.find_all {|transaction|
+    @transactions.find_all do |transaction|
       transaction.result.to_s == result
-    }
+    end
   end
 
   def find_invoice_by_invoice_id(invoice_id)

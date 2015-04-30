@@ -38,7 +38,6 @@ class InvoiceItem
     quantity.to_i * unit_price.to_i
   end
 
-
   def attached_to_successful_invoice?
     @repository.am_i_successful?(invoice_id)
   end

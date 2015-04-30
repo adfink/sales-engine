@@ -90,17 +90,17 @@ class SalesEngine
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    @invoice_item_repository.find_all_by_invoice_id(invoice_id).map{|item|
+    @invoice_item_repository.find_all_by_invoice_id(invoice_id).map do |item|
       item.item_id
-    }.map{|id|
+    end.map do |id|
       @item_repository.find_by_id(id)
-    }
+    end
   end
 
   def revenue_of_merchant_by_id(merchant_id)
-    find_all_invoices_by_merchant_id(merchant_id).select{|invoice|
+    find_all_invoices_by_merchant_id(merchant_id).select do |invoice|
       invoice.successful?
-    }.map do |invoice|
+    end.map do |invoice|
         find_all_invoice_items_by_invoice_id(invoice.id)
           .map(&:total_cost).inject(:+) || 0
     end.inject(:+).to_d/100
@@ -122,25 +122,25 @@ class SalesEngine
 
   def find_items_based_on(item_id, criteria)
     invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
-    good_invoice_items = invoice_items.select{|invoice_item|
+    good_invoice_items = invoice_items.select do |invoice_item|
       invoice_item.attached_to_successful_invoice?
-    }
-    good_invoice_items.map {|invoice_item|
+    end
+    good_invoice_items.map do |invoice_item|
       invoice_item.send(criteria)
-    }.reduce(:+) || 0
+    end.reduce(:+) || 0
   end
 
   def revenue_by_merchant_id_and_invoice_date(merchant_id, date)
     successful_invoices = find_successful_invoices_by_merchant_id(merchant_id)
-       .find_all{|invoice|
+       .find_all do |invoice|
       invoice.created_at.to_s[0..9] == date[0..9]
-    }
-    invoice_items = successful_invoices.flat_map{|invoice|
+    end
+    invoice_items = successful_invoices.flat_map do |invoice|
       @invoice_item_repository.find_all_by_invoice_id(invoice.id)
-    }
-    revenues = invoice_items.map{|invoice_item|
+    end
+    revenues = invoice_items.map do |invoice_item|
       invoice_item.total_cost
-    }
+    end
     (revenues.reduce(:+) || 0).to_d/100
   end
 
@@ -150,10 +150,5 @@ class SalesEngine
 
   def charge(inputs, invoice_id)
     transaction_repository.charge(inputs, invoice_id)
-  end
-
-  def find_merchant_for_each_successful_invoice(successful_invoices)
-    @invoice_repository
-      .find_merchant_for_each_successful_invoice(successful_invoices)
   end
 end

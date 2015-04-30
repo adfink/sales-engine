@@ -51,10 +51,10 @@ attr_accessor :id, :name, :created_at, :updated_at
 
   def customers_with_pending_invoices
     failed_invoices = invoices.select{|invoice| invoice.successful? == false}
-    pending_customer_ids = failed_invoices.map{|invoice| invoice.customer_id}
-    pending_customer_ids.map {|customer_id|
+    pending_customer_ids = failed_invoices.map {|invoice| invoice.customer_id}
+    pending_customer_ids.map do |customer_id|
       @repository.find_customer_by_customer_id(customer_id)
-    }
+    end
   end
 end
 
