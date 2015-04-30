@@ -96,17 +96,17 @@ attr_reader :merchants, :engine
   end
 
   def most_revenue(number_of_merchants)
-    merchants_revenue = merchants.map{|merchant|
+    merchants_revenue = merchants.map do |merchant|
       [merchant.revenue, merchant.id]
-    }
+    end
     sorted_merchants = merchants_revenue.sort.reverse.first(number_of_merchants)
     sorted_merchants.map{|element| find_by_id(element[1])}
   end
 
   def most_items(number_of_merchants)
-    items = merchants.map{|merchant|
+    items = merchants.map do |merchant|
       [merchant.items_sold, merchant.id, merchant]
-    }
+    end
     sorted_most_items = items.sort.reverse.first(number_of_merchants)
     sorted_most_items.map{|array| array[2]}
   end
@@ -117,8 +117,8 @@ attr_reader :merchants, :engine
 
   def revenue(date)
     date = date.to_s
-    merchants.reduce(0){|sum, merchant|
+    merchants.reduce(0) do |sum, merchant|
       sum + merchant.revenue(date)
-    }
+    end
   end
 end

@@ -44,9 +44,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @invoice_items.find_all {|invoice_item|
+    @invoice_items.find_all do |invoice_item|
       invoice_item.invoice_id == invoice_id
-    }
+    end
   end
 
   def find_by_item_id(number)
@@ -78,9 +78,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_created_at(time)
-    @invoice_items.find_all {|invoice_item|
+    @invoice_items.find_all do |invoice_item|
       invoice_item.created_at.to_s == time
-    }
+    end
   end
 
   def find_by_updated_at(time)
@@ -88,9 +88,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_updated_at(time)
-    @invoice_items.find_all {|invoice_item|
+    @invoice_items.find_all do |invoice_item|
       invoice_item.updated_at.to_s == time
-    }
+    end
   end
 
   def find_invoice_by_invoice_id(invoice_id)
@@ -101,11 +101,9 @@ class InvoiceItemRepository
     @engine.find_item_by_item_id(item_id)
   end
 
-
   def am_i_successful?(invoice_id)
     @engine.is_this_invoice_successful?(invoice_id)
   end
-
 
   def add_items(items, invoice_id)
 
