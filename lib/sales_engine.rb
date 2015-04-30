@@ -113,22 +113,20 @@ class SalesEngine
   end
 
   def find_this_items_revenue(item_id)
-   invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
-    good_invoice_items = invoice_items.select{|invoice_item|
-      invoice_item.attached_to_successful_invoice?
-    }
-    good_invoice_items.map {|invoice_item|
-      invoice_item.total_cost
-    }.reduce(:+) || 0
+    find_items_based_on(item_id, :total_cost)
   end
 
   def find_this_items_sales_number(item_id)
+    find_items_based_on(item_id, :quantity)
+  end
+
+  def find_items_based_on(item_id, criteria)
     invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
     good_invoice_items = invoice_items.select{|invoice_item|
       invoice_item.attached_to_successful_invoice?
     }
     good_invoice_items.map {|invoice_item|
-      invoice_item.quantity.to_i
+      invoice_item.send(criteria)
     }.reduce(:+) || 0
   end
 
