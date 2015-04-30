@@ -1,4 +1,4 @@
-require_relative 'merchant_repository'
+  require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'item_repository'
 require_relative 'invoice_item_repository'
@@ -37,43 +37,43 @@ class SalesEngine
   end
 
   def find_all_items_by_merchant_id(merchant_id)
-    @item_repository.find_all_by_merchant_id(merchant_id)
+    item_repository.find_all_by_merchant_id(merchant_id)
   end
 
   def find_all_invoices_by_merchant_id(merchant_id)
-    @invoice_repository.find_all_by_merchant_id(merchant_id)
+    invoice_repository.find_all_by_merchant_id(merchant_id)
   end
 
   def find_all_transactions_by_invoice_id(invoice_id)
-    @transaction_repository.find_all_by_invoice_id(invoice_id)
+    transaction_repository.find_all_by_invoice_id(invoice_id)
   end
 
   def find_customer_by_customer_id(customer_id)
-    @customer_repository.find_by_id(customer_id)
+    customer_repository.find_by_id(customer_id)
   end
 
   def find_merchant_by_merchant_id(merchant_id)
-    @merchant_repository.find_by_id(merchant_id)
+    merchant_repository.find_by_id(merchant_id)
   end
 
   def find_invoice_by_invoice_id(invoice_id)
-    @invoice_repository.find_by_id(invoice_id)
+    invoice_repository.find_by_id(invoice_id)
   end
 
   def find_item_by_item_id(item_id)
-    @item_repository.find_by_id(item_id)
+    item_repository.find_by_id(item_id)
   end
 
   def find_all_invoice_items_by_item_id(item_id)
-    @invoice_item_repository.find_all_by_item_id(item_id)
+    invoice_item_repository.find_all_by_item_id(item_id)
   end
 
   def find_all_invoices_by_customer_id(customer_id)
-    @invoice_repository.find_all_by_customer_id(customer_id)
+    invoice_repository.find_all_by_customer_id(customer_id)
   end
 
   def find_all_invoice_items_by_invoice_id(invoice_id)
-    @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    invoice_item_repository.find_all_by_invoice_id(invoice_id)
   end
 
   def find_successful_invoices(invoices)
@@ -90,10 +90,10 @@ class SalesEngine
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    @invoice_item_repository.find_all_by_invoice_id(invoice_id).map do |item|
+    invoice_item_repository.find_all_by_invoice_id(invoice_id).map do |item|
       item.item_id
     end.map do |id|
-      @item_repository.find_by_id(id)
+      item_repository.find_by_id(id)
     end
   end
 
@@ -107,7 +107,7 @@ class SalesEngine
   end
 
   def is_this_invoice_successful?(invoice_id)
-    @transaction_repository
+    transaction_repository
       .find_all_by_invoice_id(invoice_id).any? {|transaction|
       transaction.result == "success"}
   end
@@ -136,7 +136,7 @@ class SalesEngine
       invoice.created_at.to_s[0..9] == date[0..9]
     end
     invoice_items = successful_invoices.flat_map do |invoice|
-      @invoice_item_repository.find_all_by_invoice_id(invoice.id)
+      invoice_item_repository.find_all_by_invoice_id(invoice.id)
     end
     revenues = invoice_items.map do |invoice_item|
       invoice_item.total_cost

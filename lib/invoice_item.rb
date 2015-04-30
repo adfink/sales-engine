@@ -10,6 +10,8 @@ class InvoiceItem
                 :updated_at,
                 :row
 
+  attr_reader   :repository
+
   def initialize(row, repository)
     @row = row
     @repository = repository
@@ -27,11 +29,11 @@ class InvoiceItem
   end
 
   def invoice
-    @repository.find_invoice_by_invoice_id(invoice_id)
+    repository.find_invoice_by_invoice_id(invoice_id)
   end
 
   def item
-    @repository.find_item_by_item_id(item_id)
+    repository.find_item_by_item_id(item_id)
   end
 
   def total_cost
@@ -39,6 +41,6 @@ class InvoiceItem
   end
 
   def attached_to_successful_invoice?
-    @repository.am_i_successful?(invoice_id)
+    repository.am_i_successful?(invoice_id)
   end
 end

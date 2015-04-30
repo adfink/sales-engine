@@ -8,6 +8,8 @@ attr_accessor :id,
               :created_at,
               :updated_at
 
+attr_reader   :repository
+
   def initialize(row, repository)
     @repository  = repository
     @id          = row[:id].to_i
@@ -23,30 +25,30 @@ attr_accessor :id,
   end
 
   def transactions
-    @repository.find_all_transactions_by_invoice_id(id)
+    repository.find_all_transactions_by_invoice_id(id)
   end
 
   def items
-    @repository.find_all_items_by_invoice_id(id)
+    repository.find_all_items_by_invoice_id(id)
   end
 
   def invoice_items
-    @repository.find_all_invoice_items_by_invoice_id(id)
+    repository.find_all_invoice_items_by_invoice_id(id)
   end
 
   def customer
-    @repository.find_customer_by_customer_id(customer_id)
+    repository.find_customer_by_customer_id(customer_id)
   end
 
   def merchant
-    @repository.find_merchant_by_merchant_id(merchant_id)
+    repository.find_merchant_by_merchant_id(merchant_id)
   end
 
   def successful?
-    @repository.am_i_successful?(id)
+    repository.am_i_successful?(id)
   end
 
   def charge(inputs)
-  @repository.charge(inputs, id)
+    repository.charge(inputs, id)
   end
 end

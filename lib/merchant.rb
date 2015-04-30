@@ -2,7 +2,12 @@ require_relative 'merchant_repository'
 require 'pry'
 
 class Merchant
-attr_accessor :id, :name, :created_at, :updated_at
+attr_accessor :id,
+              :name,
+              :created_at,
+              :updated_at
+
+attr_reader   :repository
 
   def initialize(row, repository)
     @repository = repository
@@ -17,7 +22,7 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def items
-    @repository.find_all_items_by_merchant_id(id)
+    repository.find_all_items_by_merchant_id(id)
   end
 
   def items_sold
@@ -25,7 +30,7 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def invoices
-    @repository.find_all_invoices_by_merchant_id(id)
+    repository.find_all_invoices_by_merchant_id(id)
   end
 
   def revenue(date = nil)
@@ -33,27 +38,27 @@ attr_accessor :id, :name, :created_at, :updated_at
   end
 
   def merchant_revenue_by_id
-    @repository.find_revenue_by_id(id)
+    repository.find_revenue_by_id(id)
   end
 
   def merchant_revenue(date)
     date = date.to_s
-    @repository.find_revenue_by_id_by_date(id, date)
+    repository.find_revenue_by_id_by_date(id, date)
   end
 
   def favorite_customer
-   @repository.favorite_customer(successful_invoices)
+   repository.favorite_customer(successful_invoices)
   end
 
   def successful_invoices
-    @repository.find_successful_invoices(invoices)
+    repository.find_successful_invoices(invoices)
   end
 
   def customers_with_pending_invoices
     failed_invoices = invoices.select{|invoice| invoice.successful? == false}
     pending_customer_ids = failed_invoices.map {|invoice| invoice.customer_id}
     pending_customer_ids.map do |customer_id|
-      @repository.find_customer_by_customer_id(customer_id)
+      repository.find_customer_by_customer_id(customer_id)
     end
   end
 end

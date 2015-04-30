@@ -9,6 +9,8 @@ class Transactions
                 :updated_at,
                 :result
 
+  attr_reader   :repository
+
   def initialize(row, repository)
     @repository                  = repository
     @id                          = row[:id].to_i
@@ -25,6 +27,6 @@ class Transactions
   end
 
   def invoice
-    @repository.find_invoice_by_invoice_id(invoice_id)
+    repository.find_invoice_by_invoice_id(invoice_id)
   end
 end
