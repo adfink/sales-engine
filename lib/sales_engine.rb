@@ -22,12 +22,18 @@ class SalesEngine
   end
 
   def startup
-    @merchant_repository     = MerchantRepository.new(self, "#{@dir}/merchants.csv")
-    @invoice_repository      = InvoiceRepository.new(self, "#{@dir}/invoices.csv")
-    @item_repository         = ItemRepository.new(self, "#{@dir}/items.csv")
-    @invoice_item_repository = InvoiceItemRepository.new(self, "#{@dir}/invoice_items.csv")
-    @customer_repository     = CustomerRepository.new(self, "#{@dir}/customers.csv")
-    @transaction_repository  = TransactionRepository.new(self, "#{@dir}/transactions.csv")
+    @merchant_repository     = MerchantRepository
+       .new(self, "#{@dir}/merchants.csv")
+    @invoice_repository      = InvoiceRepository
+       .new(self, "#{@dir}/invoices.csv")
+    @item_repository         = ItemRepository
+       .new(self, "#{@dir}/items.csv")
+    @invoice_item_repository = InvoiceItemRepository
+       .new(self, "#{@dir}/invoice_items.csv")
+    @customer_repository     = CustomerRepository
+       .new(self, "#{@dir}/customers.csv")
+    @transaction_repository  = TransactionRepository
+       .new(self, "#{@dir}/transactions.csv")
   end
 
   def find_all_items_by_merchant_id(merchant_id)
@@ -107,22 +113,20 @@ class SalesEngine
   end
 
   def find_this_items_revenue(item_id)
-   invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
-    good_invoice_items = invoice_items.select{|invoice_item|
-      invoice_item.attached_to_successful_invoice?
-    }
-    good_invoice_items.map {|invoice_item|
-      invoice_item.total_cost
-    }.reduce(:+) || 0
+    find_items_based_on(item_id, :total_cost)
   end
 
   def find_this_items_sales_number(item_id)
+    find_items_based_on(item_id, :quantity)
+  end
+
+  def find_items_based_on(item_id, criteria)
     invoice_items = invoice_item_repository.find_all_by_item_id(item_id)
     good_invoice_items = invoice_items.select{|invoice_item|
       invoice_item.attached_to_successful_invoice?
     }
     good_invoice_items.map {|invoice_item|
-      invoice_item.quantity.to_i
+      invoice_item.send(criteria)
     }.reduce(:+) || 0
   end
 
@@ -149,6 +153,7 @@ class SalesEngine
   end
 
   def find_merchant_for_each_successful_invoice(successful_invoices)
-    @invoice_repository.find_merchant_for_each_successful_invoice(successful_invoices)
+    @invoice_repository
+      .find_merchant_for_each_successful_invoice(successful_invoices)
   end
 end

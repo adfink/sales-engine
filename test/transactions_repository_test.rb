@@ -97,6 +97,19 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 2  , transactions_repo.find_all_by_result("failed").map{|transaction| transaction.id}.count
   end
 
+  def test_it_can_find_the_next_id
+    transactions_repo = TransactionRepository.new(nil, "./fixtures/transactions.csv")
+    assert_equal 12, transactions_repo.next_id
+  end
 
+  def test_it_can_charge_a_credit_card
+    @engine = SalesEngine.new("./data")
+    @engine.startup
+    transactions_repo = TransactionRepository.new(@engine, "./data/transactions.csv")
+
+    assert_equal 5595, transactions_repo.transactions.size
+    assert_equal 5596, transactions_repo.charge({credit_card_number: "4444333322221111", credit_card_expiration: "10/13", result: "success"}, (1)).id
+    assert_equal 5596, transactions_repo.transactions.size
+  end
 end
 
