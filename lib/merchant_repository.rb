@@ -5,7 +5,8 @@ require 'pry'
 require 'date'
 
 class MerchantRepository
-attr_reader :merchants, :engine
+attr_reader :merchants,
+            :engine
 
   def initialize(engine, filepath)
     @engine = engine
@@ -13,7 +14,7 @@ attr_reader :merchants, :engine
   end
 
   def inspect
-    "merchant repository containing #{@merchants.count} items"
+    "merchant repository containing #{merchants.count} items"
   end
 
   def generate_merchants(filepath)
@@ -30,69 +31,69 @@ attr_reader :merchants, :engine
   end
 
   def all
-    @merchants
+    merchants
   end
 
   def random
-    @merchants.sample
+    merchants.sample
   end
 
   def find_revenue_by_id(id)
-    @engine.revenue_of_merchant_by_id(id)
+    engine.revenue_of_merchant_by_id(id)
   end
 
   def find_by_id(number)
-    @merchants.find {|merchant| merchant.id == number}
+    merchants.find {|merchant| merchant.id == number}
   end
 
   def find_by_name(name)
-    @merchants.find {|merchant| merchant.name == name}
+    merchants.find {|merchant| merchant.name == name}
   end
 
   def find_all_by_name(name)
-    @merchants.find_all {|merchant| merchant.name == name}
+    merchants.find_all {|merchant| merchant.name == name}
   end
 
   def find_by_created_at(time)
-    @merchants.find {|merchant| merchant.created_at.to_s == time}
+    merchants.find {|merchant| merchant.created_at.to_s == time}
   end
 
   def find_all_by_created_at(time)
-    @merchants.find_all {|merchant| merchant.created_at.to_s == time}
+    merchants.find_all {|merchant| merchant.created_at.to_s == time}
   end
 
   def find_by_updated_at(time)
-    @merchants.find {|merchant| merchant.updated_at.to_s == time}
+    merchants.find {|merchant| merchant.updated_at.to_s == time}
   end
 
   def find_all_by_updated_at(time)
-    @merchants.find_all {|merchant| merchant.updated_at.to_s == time}
+    merchants.find_all {|merchant| merchant.updated_at.to_s == time}
   end
 
   def find_all_items_by_id(id)
-    @engine.find_all_items_by_merchant_id(id)
+    engine.find_all_items_by_merchant_id(id)
   end
 
   def find_all_invoices_by_merchant_id(id)
-    @engine.find_all_invoices_by_merchant_id(id)
+    engine.find_all_invoices_by_merchant_id(id)
   end
 
   def find_revenue_by_id_by_date(id, date)
-    @engine.revenue_by_merchant_id_and_invoice_date(id, date)
+    engine.revenue_by_merchant_id_and_invoice_date(id, date)
   end
 
   def find_successful_invoices(invoices)
-    @engine.find_successful_invoices(invoices)
+    engine.find_successful_invoices(invoices)
   end
 
   def favorite_customer(successful_invoices)
     good_invoices = successful_invoices.group_by{|invoice| invoice.customer_id}
     best_customer_id = good_invoices.map{|k, v| [v.size, k]}.sort[-1][-1]
-    @engine.find_customer_by_customer_id(best_customer_id)
+    engine.find_customer_by_customer_id(best_customer_id)
   end
 
   def find_customer_by_customer_id(customer_id)
-    @engine.customer_repository.find_by_id(customer_id)
+    engine.customer_repository.find_by_id(customer_id)
   end
 
   def most_revenue(number_of_merchants)
@@ -112,7 +113,7 @@ attr_reader :merchants, :engine
   end
 
   def find_all_items_by_merchant_id(id)
-    @engine.find_all_items_by_merchant_id(id)
+    engine.find_all_items_by_merchant_id(id)
   end
 
   def revenue(date)

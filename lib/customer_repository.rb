@@ -11,7 +11,7 @@ attr_reader :customers, :engine
   end
 
   def inspect
-    "customer repository containing #{@customers.count} items"
+    "customer repository containing #{customers.count} items"
   end
 
   def generate_customers(filepath)
@@ -28,55 +28,55 @@ attr_reader :customers, :engine
   end
 
   def all
-    @customers
+    customers
   end
 
   def random
-    @customers.sample
+    customers.sample
   end
 
   def find_by_id(number)
-    @customers.find {|customer| customer.id == number}
+    customers.find {|customer| customer.id == number}
   end
 
   def find_by_first_name(first_name)
-    @customers.find {|customer| customer.first_name == first_name}
+    customers.find {|customer| customer.first_name == first_name}
   end
 
   def find_all_by_first_name(first_name)
-    @customers.find_all {|customer| customer.first_name == first_name}
+    customers.find_all {|customer| customer.first_name == first_name}
   end
 
   def find_by_last_name(last_name)
-    @customers.find {|customer| customer.last_name == last_name}
+    customers.find {|customer| customer.last_name == last_name}
   end
 
   def find_all_by_last_name(last_name)
-    @customers.find_all {|customer| customer.last_name == last_name}
+    customers.find_all {|customer| customer.last_name == last_name}
   end
 
   def find_by_created_at(time)
-    @customers.find {|customer| customer.created_at.to_s == time}
+    customers.find {|customer| customer.created_at.to_s == time}
   end
 
   def find_all_by_created_at(time)
-    @customers.find_all {|customer| customer.created_at.to_s == time}
+    customers.find_all {|customer| customer.created_at.to_s == time}
   end
 
   def find_by_updated_at(time)
-    @customers.find {|customer| customer.updated_at.to_s == time}
+    customers.find {|customer| customer.updated_at.to_s == time}
   end
 
   def find_all_by_updated_at(time)
-    @customers.find_all {|customer| customer.updated_at.to_s == time}
+    customers.find_all {|customer| customer.updated_at.to_s == time}
   end
 
   def find_all_invoices_by_customer_id(customer_id)
-    @engine.find_all_invoices_by_customer_id(customer_id)
+    engine.find_all_invoices_by_customer_id(customer_id)
   end
 
   def find_successful_invoices(invoices)
-    @engine.find_successful_invoices(invoices)
+    engine.find_successful_invoices(invoices)
   end
 
   def find_favorite_merchant(successful_invoices)
@@ -86,7 +86,7 @@ attr_reader :customers, :engine
     favorite_merchant_id = invoices_by_merchant.map do |k, v|
       [v.size, k]
     end.sort[-1][-1]
-    @engine.find_merchant_by_merchant_id(favorite_merchant_id)
+    engine.find_merchant_by_merchant_id(favorite_merchant_id)
   end
 
 end

@@ -10,6 +10,8 @@ attr_accessor :id,
               :created_at,
               :updated_at
 
+attr_reader   :repository
+
   def initialize(row, repository)
     @repository  = repository
     @id          = row[:id].to_i
@@ -26,11 +28,11 @@ attr_accessor :id,
   end
 
   def merchant
-    @repository.find_merchant(merchant_id)
+    repository.find_merchant(merchant_id)
   end
 
   def invoice_items
-    @repository.find_all_invoice_items_by_item_id(id)
+    repository.find_all_invoice_items_by_item_id(id)
   end
 
   def best_day
@@ -41,14 +43,14 @@ attr_accessor :id,
   end
 
   def find_invoice_items(id)
-    @repository.find_all_invoice_items_by_item_id(id)
+    repository.find_all_invoice_items_by_item_id(id)
   end
 
   def revenue
-    @repository.find_item_revenue(id)
+    repository.find_item_revenue(id)
   end
 
   def number_of_sales
-    @repository.find_item_sales_number(id)
+    repository.find_item_sales_number(id)
   end
 end

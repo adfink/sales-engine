@@ -7,6 +7,8 @@ attr_accessor :id,
               :created_at,
               :updated_at
 
+attr_reader   :repository
+
   def initialize(row, repository)
     @repository = repository
     @id         = row[:id].to_i
@@ -21,7 +23,7 @@ attr_accessor :id,
   end
 
   def invoices
-    @repository.find_all_invoices_by_customer_id(id)
+    repository.find_all_invoices_by_customer_id(id)
   end
 
   def transactions
@@ -29,10 +31,10 @@ attr_accessor :id,
   end
 
   def successful_invoices
-    @repository.find_successful_invoices(invoices)
+    repository.find_successful_invoices(invoices)
   end
 
   def favorite_merchant
-    @repository.find_favorite_merchant(successful_invoices)
+    repository.find_favorite_merchant(successful_invoices)
   end
 end
